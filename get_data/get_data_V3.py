@@ -10,3 +10,7 @@ for year in range(1926,1936):
     twcr.fetch('PRMSL',datetime.datetime(year,1,1),version='3')
     twcr.fetch('PRATE',datetime.datetime(year,1,1),version='3')
     twcr.fetch('TMP2m',datetime.datetime(year,1,1),version='3')
+
+# Winds only for 1931
+twcr.fetch('UGRD10m',datetime.datetime(1931,1,1),version='3')
+twcr.fetch('VGRD10m',datetime.datetime(1931,1,1),version='3')
