@@ -21,7 +21,7 @@ from matplotlib.lines import Line2D
 start=datetime.datetime(1930,10,1,0,0)
 end=datetime.datetime(1931,9,30,23,59)
 
-ylim = (-10,10)
+ylim = (-13,13)
 
 def fromversion(version):
     dts=[]
@@ -77,7 +77,7 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.1')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]+3, 
+                       ndata[:,m]+4, 
                        linewidth=0.5, 
                        color=(0,0,1,1),
                        alpha=0.1,
@@ -86,7 +86,7 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.7')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-3, 
+                       ndata[:,m]-4, 
                        linewidth=0.5, 
                        color=(1,0,0,1),
                        alpha=0.1,

@@ -12,11 +12,11 @@ parser.add_argument("--version", help="Run number, e.g. 4.5.1",
 parser.add_argument("--min_lat", help="Min latitude",
                     type=float,required=False,default=20)
 parser.add_argument("--max_lat", help="Max latitude",
-                    type=float,required=False,default=50.0)
+                    type=float,required=False,default=40.0)
 parser.add_argument("--min_lon", help="Min longitude",
-                    type=float,required=False,default=70)
+                    type=float,required=False,default=105)
 parser.add_argument("--max_lon", help="Max longitude",
-                    type=float,required=False,default=130.0)
+                    type=float,required=False,default=125.0)
 args = parser.parse_args()
 
 for year in (1930,1931):

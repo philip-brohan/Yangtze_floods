@@ -65,6 +65,8 @@ ax = fig.add_axes([0.06,0.06,0.93,0.92],
                   ylim=ylim)
 ax.set_ylabel('PRMSL anomaly')
 
+#(ndata,dts) = fromversion('4.6.1')
+#v3m = numpy.mean(ndata,1)
 
 (ndata,dts) = fromversion('3')
 v3m = numpy.mean(ndata,1)
@@ -79,7 +81,7 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.1')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m+400, 
+                       ndata[:,m]-v3m+500, 
                        linewidth=0.5, 
                        color=(0,0,1,1),
                        alpha=0.1,
@@ -88,7 +90,7 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.7')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m-400, 
+                       ndata[:,m]-v3m-500, 
                        linewidth=0.5, 
                        color=(1,0,0,1),
                        alpha=0.1,

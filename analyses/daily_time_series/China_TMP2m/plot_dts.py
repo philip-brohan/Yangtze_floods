@@ -21,7 +21,7 @@ from matplotlib.lines import Line2D
 start=datetime.datetime(1930,10,1,0,0)
 end=datetime.datetime(1931,9,30,23,59)
 
-ylim = (-750,750)
+ylim = (-7.5,7.5)
 
 def fromversion(version):
     dts=[]
@@ -31,7 +31,7 @@ def fromversion(version):
             if year == 1930 and month <10: continue
             if year == 1931 and month >9:  continue
             for day in range(1,monthrange(year,month)[1]+1):
-                opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/PRMSL/%04d%02d%02d.pkl" % (
+                opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/TMP2m/%04d%02d%02d.pkl" % (
                        os.getenv('SCRATCH'),version,year,month,day)
                 with open(opf, "rb") as f:
                     nddy  = pickle.load(f)
@@ -63,7 +63,7 @@ ax = fig.add_axes([0.06,0.06,0.93,0.92],
                   xlim=((start-datetime.timedelta(days=1)),
                         (end+datetime.timedelta(days=1))),
                   ylim=ylim)
-ax.set_ylabel('PRMSL anomaly')
+ax.set_ylabel('TMP2m anomaly')
 
 
 (ndata,dts) = fromversion('3')
@@ -79,7 +79,7 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.1')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m+400, 
+                       ndata[:,m]-v3m+4, 
                        linewidth=0.5, 
                        color=(0,0,1,1),
                        alpha=0.1,
@@ -88,11 +88,11 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.7')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m-400, 
+                       ndata[:,m]-v3m-4, 
                        linewidth=0.5, 
                        color=(1,0,0,1),
                        alpha=0.1,
                        zorder=200))
 
-fig.savefig('PRMSL_dts.png')
+fig.savefig('TMP2m_dts.png')
 
