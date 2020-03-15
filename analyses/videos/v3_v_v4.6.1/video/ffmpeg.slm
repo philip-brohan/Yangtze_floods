@@ -2,8 +2,8 @@
 #SBATCH --qos=normal
 #SBATCH --mem=200000
 #SBATCH --ntasks=16
-#SBATCH --ntasks-per-core=2
-#SBATCH --time=20
+#SBATCH --ntasks-per-core=1
+#SBATCH --time=70
 
 cd $SCRATCH/images/
 
@@ -12,4 +12,4 @@ rm Yangtze_1931_v3_v_4.6.1.mp4
 #  These usually come from disc problems in the creation step.
 find Yangtze_1931_v3_v_4.6.1/*.png -type f -empty -delete
 
-ffmpeg -r 24 -pattern_type glob -i Yangtze_1931_v3_v_4.6.1/\*.png -c:v libx264 -threads 16 -preset slow -tune animation -profile:v high -level 4.2 -pix_fmt yuv420p -crf 25 -c:a copy Yangtze_1931_v3_v_4.6.1.mp4
+ffmpeg -r 24 -pattern_type glob -i Yangtze_1931_v3_v_4.6.1/\*.png -c:v libx264 -threads 16 -preset slow -tune animation -profile:v high -level 4.2 -pix_fmt yuv420p -b:v 5M -maxrate 5M -bufsize 20M -c:a copy Yangtze_1931_v3_v_4.6.1.mp4
