@@ -1,6 +1,11 @@
 Yangtze Floods of 1931
 ======================
 
+.. toctree::
+   :maxdepth: 1
+
+   Newly-available station data <new_stations/new_stations> 
+
 Videos of MSLP over China
 -------------------------
 

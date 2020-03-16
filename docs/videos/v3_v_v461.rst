@@ -1,0 +1,22 @@
+Weather in China in 1931 - new stations
+=======================================
+
+.. seealso:: :doc:`Video version <v3_v_v461_video>`
+
+.. figure:: ../../analyses/videos/v3_v_v4.6.1/v3_v_v461_1930110100.png
+   :width: 95%
+   :align: center
+   :figwidth: 95%
+
+   MSLP Contours for and ensemble at new station locations from 20CRv3 (left and in blue) and scout 4.6.1 (right and in red).
+
+   The blue lines are contours of the individual ensemble members. Black lines are contours of the ensemble mean. The green shading shows the uncertainty in each contour - the amount of shading shows the probability there is a contour at each location (estimated from the reanalysis ensemble). The yellow dots mark pressure observations assimilated while making the field shown. Red dots are additional station presures assimilated by the scout run only.
+
+   The right panel compares the two ensembles with the new observations: Black lines show the observed pressures, blue dots the original 20CRv3 ensemble at the station locations, and red dots the 20CR ensemble after assimilating all the observations except the observation at that location. Note that the observations shown include the reanalysis estimates for station bias and height effects (they are calculated from the 'Obfit.post' parameter in the 'psobs_posterior' observation feedback file). 
+
+|
+
+Make the figure:
+
+.. literalinclude:: ../../analyses/videos/v3_v_v4.6.1/plot_comparison.py
+
