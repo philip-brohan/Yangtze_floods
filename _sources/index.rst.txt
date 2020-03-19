@@ -38,6 +38,8 @@ One way to quickly judge the quality of the reanalyses for the period in questio
    2m air temperature from EUSTACE <stripes/EUSTACE/index>
    2m air temperature from 20CRv3 <stripes/TMP2m/index>
    2m air temperature: EUSTACE-20CRv3 comparison <stripes/TMP2m+EUSTACE/index>
+   2m air temperature: Scout 4.6.1-20CRv3 comparison <stripes/4.6.1_comparison/TMP2m/index>
+   2m air temperature: Scout 4.6.7-20CRv3 comparison <stripes/4.6.7_comparison/TMP2m/index>
    Mean-sea-level pressure from 20CRv3 <stripes/PRMSL/index>
    Precipitation rate from 20CRv3 <stripes/PRATE/index>
    
