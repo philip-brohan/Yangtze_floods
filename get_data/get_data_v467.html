@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Download data from scout 4.6.7 &#8212; Tests and analyses of version 3 of the Twentieth Century Reanalysis</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Additional observations from Chinese weather stations" href="../new_stations/new_stations.html" />
+    <link rel="prev" title="Download data from scout 4.6.1" href="get_data_v461.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../new_stations/new_stations.html" title="Additional observations from Chinese weather stations"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="get_data_v461.html" title="Download data from scout 4.6.1"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/Hankow_city_hall.jpg" alt="Logo"/>
+            </a></p>
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_data_v3.html">Get data from 20CR version 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_data_v461.html">Get data from scout 4.6.1</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Get data from scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../new_stations/new_stations.html">Newly-available station data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stripes/EUSTACE/data.html">Get data from EUSTACE</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../stripes/EUSTACE/index.html">2m air temperature from EUSTACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stripes/TMP2m/index.html">2m air temperature from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stripes/TMP2m+EUSTACE/index.html">2m air temperature: EUSTACE-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stripes/PRMSL/index.html">Mean-sea-level pressure from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../stripes/PRATE/index.html">Precipitation rate from 20CRv3</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../videos/v3_v_v461.html">MSLP in 20CRv3 compared to scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Authors and acknowledgements</a></li>
+</ul>
+<h3><a href="https://github.com/philip-brohan/Yangtze_floods">Get a copy</a></h3>
+
+<ul>
+<li><a href="https://github.com/philip-brohan/Yangtze_floods"
+           rel="nofollow">Github repository</a></li>
+</ul>
+
+<h3>Found a bug, or have a suggestion?</h3>
+
+Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">raise an issue</a>.
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="download-data-from-scout-4-6-7">
+<h1>Download data from scout 4.6.7<a class="headerlink" href="#download-data-from-scout-4-6-7" title="Permalink to this headline">¶</a></h1>
+<p>Getting data from 20CR scout runs is much more complex than <a class="reference internal" href="get_data_v3.html"><span class="doc">getting it from the released version</span></a>. Scout runs are not postprocessed or distributed, so you need to log on to <a class="reference external" href="https://docs.nersc.gov/systems/cori/">Cori</a> and extract the data yourself.</p>
+<p>Instructions (and code) for scout run data extraction are <a class="reference external" href="https://oldweather.github.io/20CRv3-diagnostics/extract_data/extract_data.html">available here</a>.</p>
+<p>Script to extract the data used here (must be run on <a class="reference external" href="https://docs.nersc.gov/systems/cori/">Cori</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/usr/bin/bash
+
+# Extract the raw 4.6.7 data for the year of the flood
+
+# This script must be run on Cori
+
+# This script submits jobs to do the data extraction;
+#  they take some time to run (days).
+
+base_dir=&#39;/global/homes/p/pbrohan/Projects/20CRv3-diagnostics/tools/extract_data/v3_release/&#39;
+
+$base_dir/extract_month_job.py --startyear=1924 --year=1930 --month=10 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1930 --month=11 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1930 --month=12 --version=467
+
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=1 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=2 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=3 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=4 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=5 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=6 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=7 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=8 --version=467
+$base_dir/extract_month_job.py --startyear=1924 --year=1931 --month=9 --version=467
+
+</pre></div>
+</div>
+<p>When this data extraction is complete, download the data to your local system.</p>
+<p>Script to download the data (uses the <a class="reference external" href="http://brohan.org/IRData/">IRData library</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="c1"># Download the scout 4.6.7 data for the year of the flood</span>
+
+<span class="c1"># Do the data extraction on Cori before running these retrievals</span>
+
+<span class="c1"># Set up the NERSC ssh proxy before running these retrievals</span>
+<span class="c1">#  ~/bin/sshproxy.sh -u pbrohan</span>
+<span class="c1"># Otherwise each retrieval will request a password</span>
+
+<span class="kn">import</span> <span class="nn">IRData.twcr</span> <span class="k">as</span> <span class="nn">twcr</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;observations&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;prmsl&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;prate&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;tmp&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;uwnd.10m&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;vwnd.10m&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed retrieval for 1930-%02&quot;</span> <span class="o">%</span> <span class="n">month</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;observations&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1931</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;prmsl&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1931</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;prate&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1931</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;tmp&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1931</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;uwnd.10m&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1931</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+        <span class="n">twcr</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s1">&#39;vwnd.10m&#39;</span><span class="p">,</span>
+                   <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1931</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+                   <span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed retrieval for 1931-%02&quot;</span> <span class="o">%</span> <span class="n">month</span><span class="p">)</span>
+
+
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../new_stations/new_stations.html" title="Additional observations from Chinese weather stations"
+             >next</a></li>
+        <li class="right" >
+          <a href="get_data_v461.html" title="Download data from scout 4.6.1"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>

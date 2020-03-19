@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>EUSTACE-20CRv3 TMP2m daily stripes for 1926-1935 &#8212; Tests and analyses of version 3 of the Twentieth Century Reanalysis</title>
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Stripes plotting code" href="plot.html" />
+    <link rel="prev" title="Get data sample to plot as stripes" href="../TMP2m/sample.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="plot.html" title="Stripes plotting code"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../TMP2m/sample.html" title="Get data sample to plot as stripes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/Hankow_city_hall.jpg" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_data/get_data_v3.html">Get data from 20CR version 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_data/get_data_v461.html">Get data from scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_data/get_data_v467.html">Get data from scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../new_stations/new_stations.html">Newly-available station data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EUSTACE/data.html">Get data from EUSTACE</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../EUSTACE/index.html">2m air temperature from EUSTACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TMP2m/index.html">2m air temperature from 20CRv3</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2m air temperature: EUSTACE-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PRMSL/index.html">Mean-sea-level pressure from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PRATE/index.html">Precipitation rate from 20CRv3</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../videos/v3_v_v461.html">MSLP in 20CRv3 compared to scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Authors and acknowledgements</a></li>
+</ul>
+<h3><a href="https://github.com/philip-brohan/Yangtze_floods">Get a copy</a></h3>
+
+<ul>
+<li><a href="https://github.com/philip-brohan/Yangtze_floods"
+           rel="nofollow">Github repository</a></li>
+</ul>
+
+<h3>Found a bug, or have a suggestion?</h3>
+
+Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">raise an issue</a>.
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="eustace-20crv3-tmp2m-daily-stripes-for-1926-1935">
+<h1>EUSTACE-20CRv3 TMP2m daily stripes for 1926-1935<a class="headerlink" href="#eustace-20crv3-tmp2m-daily-stripes-for-1926-1935" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-center" id="id1" style="width: 95%">
+<a class="reference internal image-reference" href="../../_images/comparison_grid.png"><img alt="../../_images/comparison_grid.png" src="../../_images/comparison_grid.png" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">Monthly 2m-temperature anomalies (w.r.t. 1926-35) from the EUSTACE ensemble (top), the 20CRv3 ensemble (middle), nd the difference between the two (bottom). The vertical axis is latitude, and each pixel is a longitudinal mean from a randomly selected ensemble member. For latitude:time points (pixels) where data are missing for some longitudes, the pixel is either the average of all available longitude points, or shown as missing - this decision is made at random, the probability of being missing is equal to the fraction of missing longitude points.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Sampling in this way means that regions where the variance across the ensemble is large, or where much of the data is missing, appear speckled. This provides an indication of uncertainty.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../EUSTACE/index.html">Scripts to make the EUSTACE data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TMP2m/index.html">Scripts to make the 20CRv3 data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Scripts to make the plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Function to extract the comparison data sample</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="plot.html" title="Stripes plotting code"
+             >next</a></li>
+        <li class="right" >
+          <a href="../TMP2m/sample.html" title="Get data sample to plot as stripes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>

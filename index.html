@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Yangtze Floods of 1931 &#8212; Tests and analyses of version 3 of the Twentieth Century Reanalysis</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Download data from 20CRv3" href="get_data/get_data_v3.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="get_data/get_data_v3.html" title="Download data from 20CRv3"
+             accesskey="N">next</a></li>
+        <li class="nav-item nav-item-0"><a href="#">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/Hankow_city_hall.jpg" alt="Logo"/>
+            </a></p>
+<h3><a href="#">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="get_data/get_data_v3.html">Get data from 20CR version 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_data/get_data_v461.html">Get data from scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_data/get_data_v467.html">Get data from scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="new_stations/new_stations.html">Newly-available station data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/EUSTACE/data.html">Get data from EUSTACE</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stripes/EUSTACE/index.html">2m air temperature from EUSTACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/TMP2m/index.html">2m air temperature from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/TMP2m+EUSTACE/index.html">2m air temperature: EUSTACE-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/PRMSL/index.html">Mean-sea-level pressure from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/PRATE/index.html">Precipitation rate from 20CRv3</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="videos/v3_v_v461.html">MSLP in 20CRv3 compared to scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Authors and acknowledgements</a></li>
+</ul>
+<h3><a href="https://github.com/philip-brohan/Yangtze_floods">Get a copy</a></h3>
+
+<ul>
+<li><a href="https://github.com/philip-brohan/Yangtze_floods"
+           rel="nofollow">Github repository</a></li>
+</ul>
+
+<h3>Found a bug, or have a suggestion?</h3>
+
+Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">raise an issue</a>.
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="yangtze-floods-of-1931">
+<h1>Yangtze Floods of 1931<a class="headerlink" href="#yangtze-floods-of-1931" title="Permalink to this headline">¶</a></h1>
+<p>This document describes a study of the <a class="reference external" href="https://en.wikipedia.org/wiki/1931_China_floods">Yangtze Floods of 1931</a> using the <a class="reference external" href="https://www.esrl.noaa.gov/psd/data/20thC_Rean/">Twentieth Century Reanalysis (20CR)</a> system.</p>
+<div class="section" id="weather-data-for-1931">
+<h2>Weather data for 1931<a class="headerlink" href="#weather-data-for-1931" title="Permalink to this headline">¶</a></h2>
+<p>The initial aim is to produce a good reanalysis of the weather that caused the flooding. We are looking at three runs of the 20CR system:</p>
+<ul class="simple">
+<li><p>20CR version 3 (covering 1806-2015)</p></li>
+<li><p>Scout run 4.6.1 (covering 1930/10-1931/09). Identical to 20CR version 3 except that it assimilates additional observations from about 40 <a class="reference internal" href="new_stations/new_stations.html"><span class="doc">new stations</span></a> over China - so it should be more accurate and more precise.</p></li>
+<li><p>Scout run 4.6.7 (covering 1930/10-1931/09). Identical to 4.6.1 except for a change to the data assimilation: Data assimilation in 20CR is a compromise between the weather state predicted by the model and the state indicated by the observations. This is necessary to keep the analysis stable, and to cope with errors in both the model formulation and the observations. One tuneable parameter in this compromise is the ‘relaxation to prior spread’ - set universally to 0.9 in 20CR version 3. It would be good to reduce this number, this would allow the observations to produce a bigger reduction in the observation spread, and so a more precise analysis, particularly where observations are infrequent in time (once a day or less often). The risk in doing so is that the reanalysis might become unstable.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="get_data/get_data_v3.html">Get data from 20CR version 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_data/get_data_v461.html">Get data from scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_data/get_data_v467.html">Get data from scout 4.6.7</a></li>
+</ul>
+</div>
+<p>As well as the reanalysis we would like observations and observational datasets. So far we have a collection of newly-digitised station observations, and the <a class="reference external" href="https://www.eustaceproject.org/">EUSTACE dataset</a> of daily temperatures.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="new_stations/new_stations.html">Newly-available station data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/EUSTACE/data.html">Get data from EUSTACE</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="testing-the-reanalysis-runs">
+<h2>Testing the reanalysis runs<a class="headerlink" href="#testing-the-reanalysis-runs" title="Permalink to this headline">¶</a></h2>
+<p>One way to quickly judge the quality of the reanalyses for the period in question, is to reporoduce the stripes plots, from the <a class="reference external" href="https://oldweather.github.io/20CRv3-diagnostics/index.html">20CRv3 diagnostics</a>, but using daily data just for 1926-1935:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stripes/EUSTACE/index.html">2m air temperature from EUSTACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/TMP2m/index.html">2m air temperature from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/TMP2m+EUSTACE/index.html">2m air temperature: EUSTACE-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/PRMSL/index.html">Mean-sea-level pressure from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stripes/PRATE/index.html">Precipitation rate from 20CRv3</a></li>
+</ul>
+</div>
+<p>A key question is how successful 20CR is in using pressure observations to reconstruct the weather state over China during the flood period. Is this reconstruction improved by assimilating the <a class="reference internal" href="new_stations/new_stations.html"><span class="doc">new station observations</span></a>? Is it improved by the assimilation parameter changes in scout 4.6.7?</p>
+<p>To investigate this, we have made <a class="reference external" href="http://brohan.org/offline_assimilation/representing_uncertainty/representing_uncertainty.html">spaghetti-contour plots</a> comparing the reanalysis versions:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="videos/v3_v_v461.html">MSLP in 20CRv3 compared to scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="small-print">
+<h2>Small print<a class="headerlink" href="#small-print" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Authors and acknowledgements</a></li>
+</ul>
+</div>
+<p>This document and the data associated with it, are crown copyright (2020) and distributed under the terms of the <a class="reference external" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/">Open Government Licence</a>. All code included is licensed under the terms of the <a class="reference external" href="https://www.gnu.org/licenses/lgpl.html">GNU Lesser General Public License</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="get_data/get_data_v3.html" title="Download data from 20CRv3"
+             >next</a></li>
+        <li class="nav-item nav-item-0"><a href="#">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>
