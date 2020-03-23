@@ -48,12 +48,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../EUSTACE/index.html">2m air temperature from EUSTACE</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TMP2m/index.html">2m air temperature from 20CRv3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TMP2m+EUSTACE/index.html">2m air temperature: EUSTACE-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.6.1_comparison/TMP2m/index.html">2m air temperature: Scout 4.6.1-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4.6.7_comparison/TMP2m/index.html">2m air temperature: Scout 4.6.7-20CRv3 comparison</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Mean-sea-level pressure from 20CRv3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PRATE/index.html">Precipitation rate from 20CRv3</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../videos/v3_v_v461.html">MSLP in 20CRv3 compared to scout 4.6.1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../daily_time_series/PRMSL/index.html">Daily MSLP over China</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../daily_time_series/TMP2m/index.html">Daily TMP2m over China</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../credits.html">Authors and acknowledgements</a></li>
@@ -78,15 +84,11 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
             
   <div class="section" id="make-daily-prmsl-climatology-over-1926-1935">
 <h1>Make daily PRMSL climatology over 1926-1935<a class="headerlink" href="#make-daily-prmsl-climatology-over-1926-1935" title="Permalink to this headline">¶</a></h1>
-<p>Extracting data for a point in time and making the sampled longitude average is a slow process. So we parallelise it: make one script to make the sample at a given slice in time (day), and then run that script for each day in parallel.</p>
-<p>Script to make the sample for one time-slice:</p>
+<p>Extracting data for a day and making the time average is a slow process. So we parallelise it: make one script to make the sample at a given slice in time (day), and then run that script for each day in parallel.</p>
+<p>Script to make the climatology for one day:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-<span class="c1"># 20CRv3 stripes.</span>
-<span class="c1"># Monthly, resolved in latitude, averaging in longitude, </span>
-<span class="c1">#  sampling the ensemble.</span>
-
-<span class="c1"># Get the sample for a specified day</span>
+<span class="c1"># Make a climatology for a single day over the specified period</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">iris</span>
@@ -94,16 +96,8 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_agg</span> <span class="kn">import</span> <span class="n">FigureCanvasAgg</span> <span class="k">as</span> <span class="n">FigureCanvas</span>
-<span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
-<span class="kn">from</span> <span class="nn">matplotlib.lines</span> <span class="kn">import</span> <span class="n">Line2D</span>
-
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--year&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span>
-                    <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span><span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--month&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Month&quot;</span><span class="p">,</span>
                     <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span><span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--day&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Day&quot;</span><span class="p">,</span>
@@ -113,52 +107,53 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--endyear&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;End Year&quot;</span><span class="p">,</span>
                     <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span><span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mi">1935</span><span class="p">)</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--opdir&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Directory for output files&quot;</span><span class="p">,</span>
-                    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_3/analyses/Stripes_daily/PRMSL&quot;</span> <span class="o">%</span> \
+                    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_3/analyses/daily/PRMSL&quot;</span> <span class="o">%</span> \
                                            <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span>
                     <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span><span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">opdir</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">opdir</span><span class="p">)</span>
+<span class="n">opdir</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/clim_</span><span class="si">%04d</span><span class="s2">-</span><span class="si">%04d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">opdir</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">startyear</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">endyear</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">opdir</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">opdir</span><span class="p">)</span>
 
 <span class="c1"># Fix dask SPICE bug</span>
 <span class="kn">import</span> <span class="nn">dask</span>
 <span class="n">dask</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">scheduler</span><span class="o">=</span><span class="s1">&#39;single-threaded&#39;</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">get_sample</span> <span class="kn">import</span> <span class="n">get_sample_cube</span>
+<span class="kn">from</span> <span class="nn">get_sample</span> <span class="kn">import</span> <span class="n">load_daily</span>
 
-<span class="n">cday</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">day</span>
-<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">day</span><span class="o">==</span><span class="mi">29</span><span class="p">:</span> <span class="n">cday</span><span class="o">=</span><span class="mi">28</span>
-<span class="n">cpkl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_3/analyses/daily/PRMSL/clim_</span><span class="si">%04d</span><span class="s2">-</span><span class="si">%04d</span><span class="s2">/</span><span class="si">%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
-           <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">args</span><span class="o">.</span><span class="n">startyear</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">endyear</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">cday</span><span class="p">)</span>
-<span class="n">climatology</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">cpkl</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+<span class="n">y</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">startyear</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">endyear</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+   <span class="n">m</span><span class="o">=</span><span class="n">load_daily</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+   <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="o">.</span><span class="n">collapsed</span><span class="p">(</span><span class="s1">&#39;member&#39;</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">MEAN</span><span class="p">)</span>
+   <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">cube</span><span class="o">.</span><span class="n">CubeList</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">merge_cube</span><span class="p">()</span>
+<span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">collapsed</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="n">iris</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">MEAN</span><span class="p">)</span>
 
-<span class="n">ndata</span><span class="o">=</span><span class="n">get_sample_cube</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">day</span><span class="p">,</span><span class="n">climatology</span><span class="p">)</span>
-<span class="n">dts</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">day</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">cspf</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%04d%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">opdir</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
-<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">),</span><span class="nb">open</span><span class="p">(</span><span class="n">cspf</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">))</span>
-   
-
+<span class="n">cspf</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">opdir</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="nb">open</span><span class="p">(</span><span class="n">cspf</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Script to generate list of time-slices to run:</p>
+<p>Script to generate list of days to run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-<span class="c1"># Scripts to make slices for every day</span>
+<span class="c1"># Scripts to make slices for every month</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 
-<span class="n">current</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1926</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">while</span> <span class="n">current</span><span class="o">.</span><span class="n">year</span><span class="o">&lt;</span><span class="mi">1936</span><span class="p">:</span>
-    <span class="n">opf</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_3/analyses/Stripes_daily/PRMSL/&quot;</span><span class="o">+</span>
-         <span class="s2">&quot;</span><span class="si">%04d%02d%02d</span><span class="s2">.pkl&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span>
-                                <span class="n">current</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">current</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">current</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
+<span class="n">current</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1981</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">current</span><span class="o">.</span><span class="n">year</span><span class="o">==</span><span class="mi">1981</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">current</span><span class="o">.</span><span class="n">month</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">current</span><span class="o">.</span><span class="n">day</span><span class="o">==</span><span class="mi">29</span><span class="p">:</span>
+        <span class="n">current</span><span class="o">+=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">continue</span>
+    <span class="n">opf</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_3/analyses/daily/PRMSL/&quot;</span><span class="o">+</span>
+         <span class="s2">&quot;clim_1926-1935/</span><span class="si">%02d%02d</span><span class="s2">.pkl&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span>
+                                          <span class="n">current</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">current</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">opf</span><span class="p">):</span>
         <span class="n">current</span><span class="o">+=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">continue</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;./get_slice.py --year=</span><span class="si">%d</span><span class="s2"> --month=</span><span class="si">%d</span><span class="s2"> --day=</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
-                            <span class="n">current</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">current</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">current</span><span class="o">.</span><span class="n">day</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;./make_climatology_for_day.py --month=</span><span class="si">%d</span><span class="s2"> --day=</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                                      <span class="n">current</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">current</span><span class="o">.</span><span class="n">day</span><span class="p">))</span>
     <span class="n">current</span><span class="o">+=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>

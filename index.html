@@ -53,6 +53,10 @@
 <li class="toctree-l1"><a class="reference internal" href="videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
 </ul>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="daily_time_series/PRMSL/index.html">Daily MSLP over China</a></li>
+<li class="toctree-l1"><a class="reference internal" href="daily_time_series/TMP2m/index.html">Daily TMP2m over China</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="credits.html">Authors and acknowledgements</a></li>
 </ul>
 <h3><a href="https://github.com/philip-brohan/Yangtze_floods">Get a copy</a></h3>
@@ -121,6 +125,20 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <li class="toctree-l1"><a class="reference internal" href="videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
 </ul>
 </div>
+<p>It’s clear from the videos that all three reanalysis runs produce plausible mslp reconstructions over China, and that the difference between the runs is modest. It’s useful to compare daily time-series of the reconstructed weather for the China region (20-40N, 105-125E):</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="daily_time_series/PRMSL/index.html">Daily MSLP over China</a></li>
+<li class="toctree-l1"><a class="reference internal" href="daily_time_series/TMP2m/index.html">Daily TMP2m over China</a></li>
+</ul>
+</div>
+<p>These comparisons show that:</p>
+<ul class="simple">
+<li><p>20CRv3 provides a good reconstruction of the meteorology over China in 1930-1931.</p></li>
+<li><p>Assimilating the additional chinese station observations makes a modest, but noticeable, improvement to the reconstruction - adjusting the ensemble mean to be closer to the observations, and reducing the ensemble spread.</p></li>
+<li><p>The assimilation experiment: reducing the ‘relaxation to prior spread’ from 0.9 to 0.7, is a success - it reduces the ensemble spread without causing any problems.</p></li>
+</ul>
+<p>This set of experiments behaved as we hoped: the initial reconstruction is pretty good, assimilating additional observations improves it, changing the assimilation parameter improves it again. The improvements are modest, but that is because the initial reanalysis (20CRv3) was already good.</p>
 </div>
 <div class="section" id="small-print">
 <h2>Small print<a class="headerlink" href="#small-print" title="Permalink to this headline">¶</a></h2>

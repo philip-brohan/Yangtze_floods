@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>PRMSL over China: Daily time-series for 1930-1931 &#8212; Tests and analyses of version 3 of the Twentieth Century Reanalysis</title>
+    <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Regional time-series plotting code" href="plot.html" />
+    <link rel="prev" title="Weather in China in 1931 - assimilation experiment" href="../../videos/v461_v_v467.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="plot.html" title="Regional time-series plotting code"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../../videos/v461_v_v467.html" title="Weather in China in 1931 - assimilation experiment"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/Hankow_city_hall.jpg" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../get_data/get_data_v3.html">Get data from 20CR version 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_data/get_data_v461.html">Get data from scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_data/get_data_v467.html">Get data from scout 4.6.7</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../new_stations/new_stations.html">Newly-available station data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/EUSTACE/data.html">Get data from EUSTACE</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/EUSTACE/index.html">2m air temperature from EUSTACE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/TMP2m/index.html">2m air temperature from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/TMP2m+EUSTACE/index.html">2m air temperature: EUSTACE-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/4.6.1_comparison/TMP2m/index.html">2m air temperature: Scout 4.6.1-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/4.6.7_comparison/TMP2m/index.html">2m air temperature: Scout 4.6.7-20CRv3 comparison</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/PRMSL/index.html">Mean-sea-level pressure from 20CRv3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/PRATE/index.html">Precipitation rate from 20CRv3</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../videos/v3_v_v461.html">MSLP in 20CRv3 compared to scout 4.6.1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Daily MSLP over China</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TMP2m/index.html">Daily TMP2m over China</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Authors and acknowledgements</a></li>
+</ul>
+<h3><a href="https://github.com/philip-brohan/Yangtze_floods">Get a copy</a></h3>
+
+<ul>
+<li><a href="https://github.com/philip-brohan/Yangtze_floods"
+           rel="nofollow">Github repository</a></li>
+</ul>
+
+<h3>Found a bug, or have a suggestion?</h3>
+
+Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">raise an issue</a>.
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="prmsl-over-china-daily-time-series-for-1930-1931">
+<h1>PRMSL over China: Daily time-series for 1930-1931<a class="headerlink" href="#prmsl-over-china-daily-time-series-for-1930-1931" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-center" id="id1" style="width: 95%">
+<a class="reference internal image-reference" href="../../_images/PRMSL_ts.png"><img alt="../../_images/PRMSL_ts.png" src="../../_images/PRMSL_ts.png" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">Daily mean-sea-level pressure anomalies (w.r.t. 1926-35) over China (20-40N, 105-125E) from the 20CRv3 ensemble (in black) and the scout runs 4.6.1 (in blue - offset by +500Pa) and 4.6.7 (in red - offset by -500Pa). In each case 80 lines are plotted - one for each ensemble member.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../stripes/PRMSL/climatology.html">Scripts to make the 1926-35 climatology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot.html">Scripts to make the plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample.html">Function to extract the data sample</a></li>
+</ul>
+</div>
+<p>The three series are very similar, which is good, as it means that the version without the observations is close to the observations, so 20CR is making a good job of reconstructing the meteorology. To see the effect of the changes in the scout runs it’s useful to also plot the difference between them.</p>
+<div class="figure align-center" id="id2" style="width: 95%">
+<a class="reference internal image-reference" href="../../_images/PRMSL_dts_s.png"><img alt="../../_images/PRMSL_dts_s.png" src="../../_images/PRMSL_dts_s.png" style="width: 95%;" /></a>
+<p class="caption"><span class="caption-text">Bottom panel: as above, except anomaly w.r.t the 20CRv3 ensemble mean for the day. Top panel, the ensemble spread, for each reanalysis run, for each day.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="plot_dts.html">Scripts to make the difference plot</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="plot.html" title="Regional time-series plotting code"
+             >next</a></li>
+        <li class="right" >
+          <a href="../../videos/v461_v_v467.html" title="Weather in China in 1931 - assimilation experiment"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    </div>
+  </body>
+</html>
