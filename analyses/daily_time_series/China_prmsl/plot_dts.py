@@ -21,7 +21,7 @@ from matplotlib.lines import Line2D
 start=datetime.datetime(1930,10,1,0,0)
 end=datetime.datetime(1931,9,30,23,59)
 
-ylim = (-750,750)
+ylim = (-850,850)
 
 def fromversion(version):
     dts=[]

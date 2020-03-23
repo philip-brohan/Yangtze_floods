@@ -6,7 +6,7 @@ TMP2m daily stripes for 1926-1935
    :align: center
    :figwidth: 95%
 
-   Monthly 2m-temperature anomalies (w.r.t. 1926-35) from the 20CRv3 ensemble. The vertical axis is latitude, and each pixel is a longitudinal mean from a randomly selected ensemble member. 
+   Daily 2m-temperature anomalies (w.r.t. 1926-35) from the 20CRv3 ensemble. The vertical axis is latitude, and each pixel is a longitudinal mean from a randomly selected ensemble member. 
 
 Sampling in this way means that regions where the variance across the ensemble is large appear speckled. This provides an indication of uncertainty.
 

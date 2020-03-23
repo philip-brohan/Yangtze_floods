@@ -53,6 +53,23 @@ To investigate this, we have made `spaghetti-contour plots <http://brohan.org/of
    MSLP in 20CRv3 compared to scout 4.6.1 <videos/v3_v_v461> 
    MSLP in Scout 4.6.1 compared to scout 4.6.7 <videos/v461_v_v467>
 
+It's clear from the videos that all three reanalysis runs produce plausible mslp reconstructions over China, and that the difference between the runs is modest. It's useful to compare daily time-series of the reconstructed weather for the China region (20-40N, 105-125E):
+
+.. toctree::
+   :maxdepth: 1
+
+   Daily MSLP over China <daily_time_series/PRMSL/index> 
+   Daily TMP2m over China <daily_time_series/TMP2m/index> 
+
+These comparisons show that:
+
+* 20CRv3 provides a good reconstruction of the meteorology over China in 1930-1931.
+* Assimilating the additional chinese station observations makes a modest, but noticeable, improvement to the reconstruction - adjusting the ensemble mean to be closer to the observations, and reducing the ensemble spread.
+* The assimilation experiment: reducing the 'relaxation to prior spread' from 0.9 to 0.7, is a success - it reduces the ensemble spread without causing any problems.
+
+This set of experiments behaved as we hoped: the initial reconstruction is pretty good, assimilating additional observations improves it, changing the assimilation parameter improves it again. The improvements are modest, but that is because the initial reanalysis (20CRv3) was already good.
+
+
 Small print
 -----------
 
