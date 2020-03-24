@@ -32,7 +32,7 @@ for year in range(1929,1933):
 
         for day in range(1,monthrange(year,month)[1]+1):
 
-            opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/PRMSL/%04d%02d%02d.pkl" % (
+            opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/PRATE/%04d%02d%02d.pkl" % (
                    os.getenv('SCRATCH'),args.version,year,month,day)
             if os.path.exists(opf):
                 continue

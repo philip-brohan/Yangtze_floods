@@ -18,28 +18,27 @@ from matplotlib.figure import Figure
 from matplotlib.patches import Rectangle
 from matplotlib.lines import Line2D
 
-start=datetime.datetime(1930,10,1,0,0)
-end=datetime.datetime(1931,9,30,23,59)
+start=datetime.datetime(1930,4,1,0,0)
+end=datetime.datetime(1932,3,31,23,59)
 
-ylim = (-850,850)
+ylim = (0,4)
 
 def fromversion(version):
     dts=[]
     ndata=None
-    for year in (1930,1931):
+    for year in range(1929,1933):
         for month in range (1,13):
-            if year == 1930 and month <10: continue
-            if year == 1931 and month >9:  continue
             for day in range(1,monthrange(year,month)[1]+1):
-                opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/PRMSL/%04d%02d%02d.pkl" % (
+                opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/PRATE/%04d%02d%02d.pkl" % (
                        os.getenv('SCRATCH'),version,year,month,day)
-                with open(opf, "rb") as f:
-                    nddy  = pickle.load(f)
-                if ndata is None:
-                    ndata = nddy
-                else:
-                    ndata = numpy.ma.concatenate((ndata,nddy))
-                dts.append(datetime.datetime(year,month,day,12))
+                if os.path.exists(opf):
+                    with open(opf, "rb") as f:
+                        nddy  = pickle.load(f)
+                    if ndata is None:
+                        ndata = nddy
+                    else:
+                        ndata = numpy.ma.concatenate((ndata,nddy))
+                    dts.append(datetime.datetime(year,month,day,12))
     return (ndata,dts)
 
 # Plot the resulting array as a set of line graphs
@@ -63,16 +62,12 @@ ax = fig.add_axes([0.06,0.06,0.93,0.92],
                   xlim=((start-datetime.timedelta(days=1)),
                         (end+datetime.timedelta(days=1))),
                   ylim=ylim)
-ax.set_ylabel('PRMSL anomaly')
-
-#(ndata,dts) = fromversion('4.6.1')
-#v3m = numpy.mean(ndata,1)
+ax.set_ylabel('PRATE (*10,000)')
 
 (ndata,dts) = fromversion('3')
-v3m = numpy.mean(ndata,1)
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m, 
+                       ndata[:,m]*10000+1, 
                        linewidth=0.5, 
                        color=(0,0,0,1),
                        alpha=0.1,
@@ -81,7 +76,7 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.1')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m+500, 
+                       ndata[:,m]*10000+2.0, 
                        linewidth=0.5, 
                        color=(0,0,1,1),
                        alpha=0.1,
@@ -90,11 +85,11 @@ for m in range(80):
 (ndata,dts) = fromversion('4.6.7')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m-500, 
+                       ndata[:,m]*10000, 
                        linewidth=0.5, 
                        color=(1,0,0,1),
                        alpha=0.1,
                        zorder=200))
 
-fig.savefig('PRMSL_dts.png')
+fig.savefig('PRATE_ts.png')
 

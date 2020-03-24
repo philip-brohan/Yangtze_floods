@@ -19,8 +19,8 @@ from matplotlib.figure import Figure
 from matplotlib.patches import Rectangle
 from matplotlib.lines import Line2D
 
-start=datetime.datetime(1930,10,1,0,0)
-end=datetime.datetime(1931,9,30,23,59)
+start=datetime.datetime(1930,4,1,0,0)
+end=datetime.datetime(1932,3,31,23,59)
 
 ylim = (-7.5,7.5)
 
@@ -28,13 +28,12 @@ def fromversion(version):
     dts=[]
     spread=[]
     ndata=None
-    for year in (1930,1931):
+    for year in range(1929,1933):
         for month in range (1,13):
-            if year == 1930 and month <10: continue
-            if year == 1931 and month >9:  continue
             for day in range(1,monthrange(year,month)[1]+1):
                 opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/TMP2m/%04d%02d%02d.pkl" % (
                        os.getenv('SCRATCH'),version,year,month,day)
+                if not os.path.exists(opf): continue
                 with open(opf, "rb") as f:
                     nddy  = pickle.load(f)
                 if ndata is None:
@@ -74,9 +73,6 @@ ax2 = fig.add_axes([0.06,0.75,0.93,0.22],
 ax2.set_ylabel('Spread')
 ax2.get_xaxis().set_visible(False)
 
-#(ndata,dts) = fromversion('4.6.1')
-#v3m = numpy.mean(ndata,1)
-
 (ndata,dts,spread) = fromversion('3')
 v3m = numpy.mean(ndata,1)
 for m in range(80):
@@ -97,7 +93,7 @@ ax2.add_line(Line2D(dts,
 (ndata,dts,spread) = fromversion('4.6.1')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m+4, 
+                       ndata[:,m]-v3m[365:(365+365)]+4, 
                        linewidth=0.5, 
                        color=(0,0,1,1),
                        alpha=0.1,
@@ -112,7 +108,7 @@ ax2.add_line(Line2D(dts,
 (ndata,dts,spread) = fromversion('4.6.7')
 for m in range(80):
     ax.add_line(Line2D(dts, 
-                       ndata[:,m]-v3m-4, 
+                       ndata[:,m]-v3m[365:(365+365)]-4, 
                        linewidth=0.5, 
                        color=(1,0,0,1),
                        alpha=0.1,

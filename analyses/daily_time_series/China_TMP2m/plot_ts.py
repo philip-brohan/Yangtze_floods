@@ -18,21 +18,20 @@ from matplotlib.figure import Figure
 from matplotlib.patches import Rectangle
 from matplotlib.lines import Line2D
 
-start=datetime.datetime(1930,10,1,0,0)
-end=datetime.datetime(1931,9,30,23,59)
+start=datetime.datetime(1930,4,1,0,0)
+end=datetime.datetime(1932,3,31,23,59)
 
 ylim = (-13,13)
 
 def fromversion(version):
     dts=[]
     ndata=None
-    for year in (1930,1931):
+    for year in range(1929,1933):
         for month in range (1,13):
-            if year == 1930 and month <10: continue
-            if year == 1931 and month >9:  continue
             for day in range(1,monthrange(year,month)[1]+1):
                 opf="%s/20CR/version_%s/analyses/Yangtze_ts_daily/TMP2m/%04d%02d%02d.pkl" % (
                        os.getenv('SCRATCH'),version,year,month,day)
+                if not os.path.exists(opf): continue
                 with open(opf, "rb") as f:
                     nddy  = pickle.load(f)
                 if ndata is None:

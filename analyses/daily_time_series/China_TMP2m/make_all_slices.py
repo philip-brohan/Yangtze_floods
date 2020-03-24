@@ -19,11 +19,16 @@ parser.add_argument("--max_lon", help="Max longitude",
                     type=float,required=False,default=125.0)
 args = parser.parse_args()
 
-for year in (1930,1931):
+for year in range(1929,1933):
     for month in range (1,13):
 
-        if year == 1930 and month <10: continue
-        if year == 1931 and month >9:  continue
+        if args.version=='3':
+            if year == 1929 and month <10: continue
+            if year == 1932 and month >9:  continue
+        else:
+            if year < 1930 or year > 1931: continue
+            if year == 1930 and month <10: continue
+            if year == 1931 and month >9:  continue
 
         for day in range(1,monthrange(year,month)[1]+1):
 
