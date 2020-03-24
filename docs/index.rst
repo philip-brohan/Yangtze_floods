@@ -60,6 +60,7 @@ It's clear from the videos that all three reanalysis runs produce plausible mslp
 
    Daily MSLP over China <daily_time_series/PRMSL/index> 
    Daily TMP2m over China <daily_time_series/TMP2m/index> 
+   Daily Precipitation over China <daily_time_series/PRATE/index> 
 
 These comparisons show that:
 

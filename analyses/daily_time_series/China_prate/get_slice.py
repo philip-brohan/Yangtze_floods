@@ -44,11 +44,11 @@ dask.config.set(scheduler='single-threaded')
 
 from get_sample import get_sample
 
-#cdy = args.day
-#if args.month==2 and args.day==29: cdy=28
-#cpkl="%s/20CR/version_3/daily_means/PRATE.climatology.1926-35/%02d%02d.pkl" % (
-#           os.getenv('SCRATCH'),args.month,cdy)
-#climatology=pickle.load(open(cpkl,'rb'))
+cdy = args.day
+if args.month==2 and args.day==29: cdy=28
+cpkl="%s/20CR/version_3/analyses/daily/PRATE/clim_1926-1935/%02d%02d.pkl" % (
+           os.getenv('SCRATCH'),args.month,cdy)
+climatology=pickle.load(open(cpkl,'rb'))
 
 ndata = get_sample(max_lat=args.max_lat,
                               min_lat=args.min_lat,
@@ -57,7 +57,7 @@ ndata = get_sample(max_lat=args.max_lat,
                               year=args.year,
                               month=args.month,
                               day=args.day,
-                              climatology=None,
+                              climatology=climatology,
                               version=args.version)
 
 cspf = "%s/%04d%02d%02d.pkl" % (args.opdir,args.year,args.month,args.day)
