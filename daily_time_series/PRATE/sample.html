@@ -26,7 +26,7 @@
           <a href="plot.html" title="Regional time-series plotting code"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">PRMSL over China: Daily time-series for 1930-1931</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">PRATE over China: Daily time-series for 1930-1931</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -58,9 +58,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Daily MSLP over China</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PRMSL/index.html">Daily MSLP over China</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TMP2m/index.html">Daily TMP2m over China</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../PRATE/index.html">Daily Precipitation over China</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Daily Precipitation over China</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../credits.html">Authors and acknowledgements</a></li>
@@ -120,7 +120,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--max_lon&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Max longitude&quot;</span><span class="p">,</span>
                     <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span><span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">360.0</span><span class="p">)</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--opdir&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Directory for output files&quot;</span><span class="p">,</span>
-                    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;analyses/Yangtze_ts_daily/PRMSL&quot;</span><span class="p">,</span>
+                    <span class="n">default</span><span class="o">=</span><span class="s2">&quot;analyses/Yangtze_ts_daily/PRATE&quot;</span><span class="p">,</span>
                     <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span><span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 <span class="n">args</span><span class="o">.</span><span class="n">opdir</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">args</span><span class="o">.</span><span class="n">version</span><span class="p">,</span><span class="n">args</span><span class="o">.</span><span class="n">opdir</span><span class="p">)</span>
@@ -135,7 +135,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 
 <span class="n">cdy</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">day</span>
 <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="o">==</span><span class="mi">2</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">day</span><span class="o">==</span><span class="mi">29</span><span class="p">:</span> <span class="n">cdy</span><span class="o">=</span><span class="mi">28</span>
-<span class="n">cpkl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_3/daily_means/PRMSL.climatology.1926-35/</span><span class="si">%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="n">cpkl</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_3/analyses/daily/PRATE/clim_1926-1935/</span><span class="si">%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
            <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">args</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">cdy</span><span class="p">)</span>
 <span class="n">climatology</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">cpkl</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))</span>
 
@@ -189,7 +189,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 
         <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
 
-            <span class="n">opf</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_</span><span class="si">%s</span><span class="s2">/analyses/Yangtze_ts_daily/PRMSL/</span><span class="si">%04d%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">opf</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_</span><span class="si">%s</span><span class="s2">/analyses/Yangtze_ts_daily/PRATE/</span><span class="si">%04d%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
                    <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">args</span><span class="o">.</span><span class="n">version</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">opf</span><span class="p">):</span>
                 <span class="k">continue</span>
@@ -221,7 +221,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="k">def</span> <span class="nf">load_daily_scout</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">,</span><span class="n">version</span><span class="p">):</span>
     <span class="n">e</span><span class="o">=</span><span class="p">[]</span>
     <span class="k">for</span> <span class="n">hour</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">21</span><span class="p">):</span>
-         <span class="n">f</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;prmsl&#39;</span><span class="p">,</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">,</span><span class="n">hour</span><span class="p">),</span><span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
+         <span class="n">f</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;prate&#39;</span><span class="p">,</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">,</span><span class="n">hour</span><span class="p">),</span><span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">)</span>
          <span class="n">e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="n">e</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">cube</span><span class="o">.</span><span class="n">CubeList</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">merge_cube</span><span class="p">()</span>
     <span class="n">e</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">collapsed</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">MEAN</span><span class="p">)</span>
@@ -230,9 +230,9 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="k">def</span> <span class="nf">load_daily_v3</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">):</span>
     <span class="n">e</span><span class="o">=</span><span class="p">[]</span>
     <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">81</span><span class="p">):</span>
-         <span class="n">f</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">load_cube</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/20CR/version_3/</span><span class="si">%04d</span><span class="s1">/PRMSL.</span><span class="si">%04d</span><span class="s1">_mem</span><span class="si">%03d</span><span class="s1">.nc&#39;</span> <span class="o">%</span> 
+         <span class="n">f</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">load_cube</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/20CR/version_3/</span><span class="si">%04d</span><span class="s1">/PRATE.</span><span class="si">%04d</span><span class="s1">_mem</span><span class="si">%03d</span><span class="s1">.nc&#39;</span> <span class="o">%</span> 
                                                            <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">year</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">member</span><span class="p">),</span>
-                             <span class="n">iris</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Pressure reduced to MSL&#39;</span><span class="p">)</span> <span class="o">&amp;</span>
+                             <span class="n">iris</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Precipitation rate&#39;</span><span class="p">)</span> <span class="o">&amp;</span>
                              <span class="n">iris</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="k">lambda</span> <span class="n">cell</span><span class="p">:</span> \
                                              <span class="n">cell</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">year</span> <span class="ow">and</span> \
                                              <span class="n">cell</span><span class="o">.</span><span class="n">point</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="n">month</span> <span class="ow">and</span> \
@@ -302,7 +302,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
           <a href="plot.html" title="Regional time-series plotting code"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >PRMSL over China: Daily time-series for 1930-1931</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >PRATE over China: Daily time-series for 1930-1931</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

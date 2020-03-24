@@ -12,12 +12,21 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="PRATE over China: Daily time-series for 1930-1931" href="../PRATE/index.html" />
+    <link rel="prev" title="Get data sample to plot as time-series" href="sample.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="../PRATE/index.html" title="PRATE over China: Daily time-series for 1930-1931"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="sample.html" title="Get data sample to plot as time-series"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">TMP2m over China: Daily time-series for 1930-1931</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -47,6 +56,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../videos/v3_v_v461.html">MSLP in 20CRv3 compared to scout 4.6.1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../PRMSL/index.html">Daily MSLP over China</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Daily TMP2m over China</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PRATE/index.html">Daily Precipitation over China</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../credits.html">Authors and acknowledgements</a></li>
@@ -93,8 +107,8 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
 <span class="kn">from</span> <span class="nn">matplotlib.lines</span> <span class="kn">import</span> <span class="n">Line2D</span>
 
-<span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1931</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">59</span><span class="p">)</span>
+<span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1932</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">59</span><span class="p">)</span>
 
 <span class="n">ylim</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">7.5</span><span class="p">,</span><span class="mf">7.5</span><span class="p">)</span>
 
@@ -102,13 +116,12 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
     <span class="n">dts</span><span class="o">=</span><span class="p">[]</span>
     <span class="n">spread</span><span class="o">=</span><span class="p">[]</span>
     <span class="n">ndata</span><span class="o">=</span><span class="kc">None</span>
-    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="mi">1931</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">1933</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">month</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">13</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">1930</span> <span class="ow">and</span> <span class="n">month</span> <span class="o">&lt;</span><span class="mi">10</span><span class="p">:</span> <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">year</span> <span class="o">==</span> <span class="mi">1931</span> <span class="ow">and</span> <span class="n">month</span> <span class="o">&gt;</span><span class="mi">9</span><span class="p">:</span>  <span class="k">continue</span>
             <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
                 <span class="n">opf</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_</span><span class="si">%s</span><span class="s2">/analyses/Yangtze_ts_daily/TMP2m/</span><span class="si">%04d%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
                        <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">version</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">opf</span><span class="p">):</span> <span class="k">continue</span>
                 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">opf</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">nddy</span>  <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">ndata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -148,9 +161,6 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spread&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="c1">#(ndata,dts) = fromversion(&#39;4.6.1&#39;)</span>
-<span class="c1">#v3m = numpy.mean(ndata,1)</span>
-
 <span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">,</span><span class="n">spread</span><span class="p">)</span> <span class="o">=</span> <span class="n">fromversion</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
 <span class="n">v3m</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
@@ -171,7 +181,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">,</span><span class="n">spread</span><span class="p">)</span> <span class="o">=</span> <span class="n">fromversion</span><span class="p">(</span><span class="s1">&#39;4.6.1&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">(</span><span class="n">dts</span><span class="p">,</span> 
-                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">-</span><span class="n">v3m</span><span class="o">+</span><span class="mi">4</span><span class="p">,</span> 
+                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">-</span><span class="n">v3m</span><span class="p">[</span><span class="mi">365</span><span class="p">:(</span><span class="mi">365</span><span class="o">+</span><span class="mi">365</span><span class="p">)]</span><span class="o">+</span><span class="mi">4</span><span class="p">,</span> 
                        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
@@ -186,7 +196,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">,</span><span class="n">spread</span><span class="p">)</span> <span class="o">=</span> <span class="n">fromversion</span><span class="p">(</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">(</span><span class="n">dts</span><span class="p">,</span> 
-                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">-</span><span class="n">v3m</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> 
+                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">-</span><span class="n">v3m</span><span class="p">[</span><span class="mi">365</span><span class="p">:(</span><span class="mi">365</span><span class="o">+</span><span class="mi">365</span><span class="p">)]</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> 
                        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
@@ -213,7 +223,14 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li> 
+        <li class="right" style="margin-right: 10px">
+          <a href="../PRATE/index.html" title="PRATE over China: Daily time-series for 1930-1931"
+             >next</a></li>
+        <li class="right" >
+          <a href="sample.html" title="Get data sample to plot as time-series"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >TMP2m over China: Daily time-series for 1930-1931</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

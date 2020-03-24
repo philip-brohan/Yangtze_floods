@@ -14,7 +14,7 @@
     <script src="../../_static/language_data.js"></script>
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Get data sample to plot as time-series" href="sample.html" />
-    <link rel="prev" title="PRMSL over China: Daily time-series for 1930-1931" href="index.html" /> 
+    <link rel="prev" title="PRATE over China: Daily time-series for 1930-1931" href="index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -23,10 +23,10 @@
           <a href="sample.html" title="Get data sample to plot as time-series"
              accesskey="N">next</a></li>
         <li class="right" >
-          <a href="index.html" title="PRMSL over China: Daily time-series for 1930-1931"
+          <a href="index.html" title="PRATE over China: Daily time-series for 1930-1931"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">PRMSL over China: Daily time-series for 1930-1931</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">PRATE over China: Daily time-series for 1930-1931</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -58,9 +58,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../videos/v461_v_v467.html">MSLP in Scout 4.6.1 compared to scout 4.6.7</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Daily MSLP over China</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PRMSL/index.html">Daily MSLP over China</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TMP2m/index.html">Daily TMP2m over China</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../PRATE/index.html">Daily Precipitation over China</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Daily Precipitation over China</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../credits.html">Authors and acknowledgements</a></li>
@@ -109,7 +109,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1930</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1932</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">59</span><span class="p">)</span>
 
-<span class="n">ylim</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1750</span><span class="p">,</span><span class="mi">1550</span><span class="p">)</span>
+<span class="n">ylim</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">2.2</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">fromversion</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
     <span class="n">dts</span><span class="o">=</span><span class="p">[]</span>
@@ -119,16 +119,14 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
             <span class="k">for</span> <span class="n">day</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
                 <span class="n">opf</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_</span><span class="si">%s</span><span class="s2">/analyses/Yangtze_ts_daily/PRATE/</span><span class="si">%04d%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
                        <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">version</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">)</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">opf</span><span class="p">):</span> <span class="k">continue</span>
-                <span class="n">opf</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/20CR/version_</span><span class="si">%s</span><span class="s2">/analyses/Yangtze_ts_daily/PRMSL/</span><span class="si">%04d%02d%02d</span><span class="s2">.pkl&quot;</span> <span class="o">%</span> <span class="p">(</span>
-                       <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">),</span><span class="n">version</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">)</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">opf</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                    <span class="n">nddy</span>  <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">ndata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">ndata</span> <span class="o">=</span> <span class="n">nddy</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ndata</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ndata</span><span class="p">,</span><span class="n">nddy</span><span class="p">))</span>
-                <span class="n">dts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">opf</span><span class="p">):</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">opf</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">nddy</span>  <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">ndata</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">ndata</span> <span class="o">=</span> <span class="n">nddy</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">ndata</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ndata</span><span class="p">,</span><span class="n">nddy</span><span class="p">))</span>
+                    <span class="n">dts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="n">month</span><span class="p">,</span><span class="n">day</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">)</span>
 
 <span class="c1"># Plot the resulting array as a set of line graphs</span>
@@ -152,12 +150,12 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
                   <span class="n">xlim</span><span class="o">=</span><span class="p">((</span><span class="n">start</span><span class="o">-</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
                         <span class="p">(</span><span class="n">end</span><span class="o">+</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))),</span>
                   <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PRMSL anomaly&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;PRATE (*10,000)&#39;</span><span class="p">)</span>
 
 <span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">)</span> <span class="o">=</span> <span class="n">fromversion</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">(</span><span class="n">dts</span><span class="p">,</span> 
-                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">],</span> 
+                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">*</span><span class="mi">10000</span><span class="p">,</span> 
                        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
@@ -166,7 +164,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">)</span> <span class="o">=</span> <span class="n">fromversion</span><span class="p">(</span><span class="s1">&#39;4.6.1&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">(</span><span class="n">dts</span><span class="p">,</span> 
-                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">+</span><span class="mi">400</span><span class="p">,</span> 
+                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">*</span><span class="mi">10000</span><span class="o">+</span><span class="mf">1.0</span><span class="p">,</span> 
                        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
@@ -175,13 +173,13 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="p">(</span><span class="n">ndata</span><span class="p">,</span><span class="n">dts</span><span class="p">)</span> <span class="o">=</span> <span class="n">fromversion</span><span class="p">(</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">Line2D</span><span class="p">(</span><span class="n">dts</span><span class="p">,</span> 
-                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> 
+                       <span class="n">ndata</span><span class="p">[:,</span><span class="n">m</span><span class="p">]</span><span class="o">*</span><span class="mi">10000</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> 
                        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
                        <span class="n">zorder</span><span class="o">=</span><span class="mi">200</span><span class="p">))</span>
 
-<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;PRMSL_ts.png&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;PRATE_ts.png&#39;</span><span class="p">)</span>
 
 </pre></div>
 </div>
@@ -200,10 +198,10 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
           <a href="sample.html" title="Get data sample to plot as time-series"
              >next</a></li>
         <li class="right" >
-          <a href="index.html" title="PRMSL over China: Daily time-series for 1930-1931"
+          <a href="index.html" title="PRATE over China: Daily time-series for 1930-1931"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">Yangtze flood</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >PRMSL over China: Daily time-series for 1930-1931</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >PRATE over China: Daily time-series for 1930-1931</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
