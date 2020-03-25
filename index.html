@@ -87,7 +87,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <ul class="simple">
 <li><p>20CR version 3 (covering 1806-2015)</p></li>
 <li><p>Scout run 4.6.1 (covering 1930/10-1931/09). Identical to 20CR version 3 except that it assimilates additional observations from about 40 <a class="reference internal" href="new_stations/new_stations.html"><span class="doc">new stations</span></a> over China - so it should be more accurate and more precise.</p></li>
-<li><p>Scout run 4.6.7 (covering 1930/10-1931/09). Identical to 4.6.1 except for a change to the data assimilation: Data assimilation in 20CR is a compromise between the weather state predicted by the model and the state indicated by the observations. This is necessary to keep the analysis stable, and to cope with errors in both the model formulation and the observations. One tuneable parameter in this compromise is the ‘relaxation to prior spread’ - set universally to 0.9 in 20CR version 3. It would be good to reduce this number, this would allow the observations to produce a bigger reduction in the observation spread, and so a more precise analysis, particularly where observations are infrequent in time (once a day or less often). The risk in doing so is that the reanalysis might become unstable.</p></li>
+<li><p>Scout run 4.6.7 (covering 1930/10-1931/09). Identical to 4.6.1 except for a change to the data assimilation: Data assimilation in 20CR is a compromise between the weather state predicted by the model and the state indicated by the observations. This is necessary to keep the analysis stable, and to cope with errors in both the model formulation and the observations. One tunable parameter in this compromise is the ‘relaxation to prior spread’ - set universally to 0.9 in 20CR version 3. It would be good to reduce this number, this would allow the observations to produce a bigger reduction in the observation spread, and so a more precise analysis, particularly where observations are infrequent in time (once a day or less often). The risk in doing so is that the reanalysis might become unstable.</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <ul>
@@ -106,7 +106,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 </div>
 <div class="section" id="testing-the-reanalysis-runs">
 <h2>Testing the reanalysis runs<a class="headerlink" href="#testing-the-reanalysis-runs" title="Permalink to this headline">¶</a></h2>
-<p>One way to quickly judge the quality of the reanalyses for the period in question, is to reporoduce the stripes plots, from the <a class="reference external" href="https://oldweather.github.io/20CRv3-diagnostics/index.html">20CRv3 diagnostics</a>, but using daily data just for 1926-1935:</p>
+<p>One way to quickly judge the quality of the reanalyses for the period in question, is to reproduce the stripes plots, from the <a class="reference external" href="https://oldweather.github.io/20CRv3-diagnostics/index.html">20CRv3 diagnostics</a>, but using daily data just for 1926-1935:</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="stripes/EUSTACE/index.html">2m air temperature from EUSTACE</a></li>
@@ -137,7 +137,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <p>These comparisons show that:</p>
 <ul class="simple">
 <li><p>20CRv3 provides a good reconstruction of the meteorology over China in 1930-1931.</p></li>
-<li><p>Assimilating the additional chinese station observations makes a modest, but noticeable, improvement to the reconstruction - adjusting the ensemble mean to be closer to the observations, and reducing the ensemble spread.</p></li>
+<li><p>Assimilating the additional Chinese station observations makes a modest, but noticeable, improvement to the reconstruction - adjusting the ensemble mean to be closer to the observations, and reducing the ensemble spread.</p></li>
 <li><p>The assimilation experiment: reducing the ‘relaxation to prior spread’ from 0.9 to 0.7, is a success - it reduces the ensemble spread without causing any problems.</p></li>
 </ul>
 <p>This set of experiments behaved as we hoped: the initial reconstruction is pretty good, assimilating additional observations improves it, changing the assimilation parameter improves it again. The improvements are modest, but that is because the initial reanalysis (20CRv3) was already good.</p>
