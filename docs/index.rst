@@ -10,7 +10,7 @@ The initial aim is to produce a good reanalysis of the weather that caused the f
 
 * 20CR version 3 (covering 1806-2015)
 * Scout run 4.6.1 (covering 1930/10-1931/09). Identical to 20CR version 3 except that it assimilates additional observations from about 40 :doc:`new stations <../new_stations/new_stations>` over China - so it should be more accurate and more precise.
-* Scout run 4.6.7 (covering 1930/10-1931/09). Identical to 4.6.1 except for a change to the data assimilation: Data assimilation in 20CR is a compromise between the weather state predicted by the model and the state indicated by the observations. This is necessary to keep the analysis stable, and to cope with errors in both the model formulation and the observations. One tuneable parameter in this compromise is the 'relaxation to prior spread' - set universally to 0.9 in 20CR version 3. It would be good to reduce this number, this would allow the observations to produce a bigger reduction in the observation spread, and so a more precise analysis, particularly where observations are infrequent in time (once a day or less often). The risk in doing so is that the reanalysis might become unstable.
+* Scout run 4.6.7 (covering 1930/10-1931/09). Identical to 4.6.1 except for a change to the data assimilation: Data assimilation in 20CR is a compromise between the weather state predicted by the model and the state indicated by the observations. This is necessary to keep the analysis stable, and to cope with errors in both the model formulation and the observations. One tunable parameter in this compromise is the 'relaxation to prior spread' - set universally to 0.9 in 20CR version 3. It would be good to reduce this number, this would allow the observations to produce a bigger reduction in the observation spread, and so a more precise analysis, particularly where observations are infrequent in time (once a day or less often). The risk in doing so is that the reanalysis might become unstable.
 
 .. toctree::
    :maxdepth: 1
@@ -30,7 +30,7 @@ As well as the reanalysis we would like observations and observational datasets.
 Testing the reanalysis runs
 ---------------------------
 
-One way to quickly judge the quality of the reanalyses for the period in question, is to reporoduce the stripes plots, from the `20CRv3 diagnostics <https://oldweather.github.io/20CRv3-diagnostics/index.html>`_, but using daily data just for 1926-1935:
+One way to quickly judge the quality of the reanalyses for the period in question, is to reproduce the stripes plots, from the `20CRv3 diagnostics <https://oldweather.github.io/20CRv3-diagnostics/index.html>`_, but using daily data just for 1926-1935:
 
 .. toctree::
    :maxdepth: 1
@@ -65,11 +65,10 @@ It's clear from the videos that all three reanalysis runs produce plausible mslp
 These comparisons show that:
 
 * 20CRv3 provides a good reconstruction of the meteorology over China in 1930-1931.
-* Assimilating the additional chinese station observations makes a modest, but noticeable, improvement to the reconstruction - adjusting the ensemble mean to be closer to the observations, and reducing the ensemble spread.
+* Assimilating the additional Chinese station observations makes a modest, but noticeable, improvement to the reconstruction - adjusting the ensemble mean to be closer to the observations, and reducing the ensemble spread.
 * The assimilation experiment: reducing the 'relaxation to prior spread' from 0.9 to 0.7, is a success - it reduces the ensemble spread without causing any problems.
 
 This set of experiments behaved as we hoped: the initial reconstruction is pretty good, assimilating additional observations improves it, changing the assimilation parameter improves it again. The improvements are modest, but that is because the initial reanalysis (20CRv3) was already good.
-
 
 Small print
 -----------

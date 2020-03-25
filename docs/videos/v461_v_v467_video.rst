@@ -14,7 +14,7 @@ Weather in China in 1931 - new stations (video)
     </table>
     </center>
 
-The blue lines are contours of the individual ensemble members. Black lines are contours of the ensemble mean. The green shading shows the uncertainty in each contour - the amount of shading shows the probability there is a contour at each location (estimated from the reanalysis ensemble). The yellow dots mark pressure observations assimilated while making the field shown. Red dots are additional station presures assimilated by the scout run only.
+The blue lines are contours of the individual ensemble members. Black lines are contours of the ensemble mean. The green shading shows the uncertainty in each contour - the amount of shading shows the probability there is a contour at each location (estimated from the reanalysis ensemble). The yellow dots mark pressure observations assimilated while making the field shown. Red dots are additional station pressures assimilated by the scout run only.
 
 The right panel compares the two ensembles at the new :doc:`new stations <../new_stations/new_stations>`: Black lines show the observed pressures, blue dots the original 20CRv3 ensemble at the station locations, and red dots the 20CR ensemble after assimilating all the observations except the observation at that location. Note that the observations shown include the reanalysis estimates for station bias and height effects (they are calculated from the 'Obfit.post' parameter in the 'psobs_posterior' observation feedback file).
 
@@ -36,8 +36,8 @@ To turn the thousands of images into a movie, use `ffmpeg <http://www.ffmpeg.org
 
 .. code-block:: shell
 
-    ffmpeg -r 24 -pattern_type glob -i Ulyses_storm/\*.png \
+    ffmpeg -r 24 -pattern_type glob -i v3_v_v4.6.1/\*.png \
            -c:v libx264 -threads 16 -preset slow -tune animation \
            -profile:v high -level 4.2 -pix_fmt yuv420p \
            -b:v 5M -maxrate 5M -bufsize 20M \
-           -c:a copy Ulysses_storm.mp4
+           -c:a copy v3_v_v4.6.1.mp4
