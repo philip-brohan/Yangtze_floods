@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Weather in China in 1931 - new stations (video) &#8212; Tests and analyses of version 3 of the Twentieth Century Reanalysis</title>
+    <title>Weather in China in 1931 - assimilation experiment (video) &#8212; Tests and analyses of version 3 of the Twentieth Century Reanalysis</title>
     <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -74,24 +74,24 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="weather-in-china-in-1931-new-stations-video">
-<h1>Weather in China in 1931 - new stations (video)<a class="headerlink" href="#weather-in-china-in-1931-new-stations-video" title="Permalink to this headline">¶</a></h1>
-<p>20CR version 3 assimilates very few observations over China. Scout 4.6.1 is identical to version 3 except that it assimilates additional observations from about 40 <a class="reference internal" href="../new_stations/new_stations.html"><span class="doc">new stations</span></a> - so it should be more accurate and more precise.</p>
+  <div class="section" id="weather-in-china-in-1931-assimilation-experiment-video">
+<h1>Weather in China in 1931 - assimilation experiment (video)<a class="headerlink" href="#weather-in-china-in-1931-assimilation-experiment-video" title="Permalink to this headline">¶</a></h1>
+<p>Scout 4.6.7 is identical to scout 4.6.1 except that it reduces the assimilation parameter ‘relaxation to prior’ from 0.9 to 0.7 in the northern hemisphere and the tropics. This increases the power of the observations to reduce the spread in the ensemble, at the cost of reducing the resistance of the reanalysis to model error.</p>
 <center>
 <table><tr><td><center>
-<iframe src="https://player.vimeo.com/video/397628442?title=0&byline=0&portrait=0" width="795" height="448" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></center></td></tr>
-<tr><td><center>MSLP Contours for and ensemble at new station locations from 20CRv3 (left and in blue) and scout 4.6.1 (right and in red).</center></td></tr>
+<iframe src="https://player.vimeo.com/video/397773663?title=0&byline=0&portrait=0" width="795" height="448" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></center></td></tr>
+<tr><td><center>MSLP Contours for and ensemble at new station locations from scout 4.6.1 (left and in blue) and scout 4.6.7 (right and in red).</center></td></tr>
 </table>
 </center><p>The blue lines are contours of the individual ensemble members. Black lines are contours of the ensemble mean. The green shading shows the uncertainty in each contour - the amount of shading shows the probability there is a contour at each location (estimated from the reanalysis ensemble). The yellow dots mark pressure observations assimilated while making the field shown. Red dots are additional station pressures assimilated by the scout run only.</p>
-<p>The right panel compares the two ensembles at the new <a class="reference internal" href="../new_stations/new_stations.html"><span class="doc">new stations</span></a>: Black lines show the observed pressures, blue dots the original 20CRv3 ensemble at the station locations, and red dots the 20CR ensemble after assimilating all the observations except the observation at that location. Note that the observations shown include the reanalysis estimates for station bias and height effects (they are calculated from the ‘Obfit.post’ parameter in the ‘psobs_posterior’ observation feedback file).</p>
-<p>Version 3 does very well considering there are so few observations over China. This means that there is limited opportunity for improvement. Even so, scout 4.6.1, assimilating about 40 additional once-daily station observations has a better fit to those new observations, and a smaller ensemble spread.</p>
+<p>The right panel compares the two ensembles at the new <a class="reference internal" href="../new_stations/new_stations.html"><span class="doc">new stations</span></a>: Black lines show the observed pressures, blue dots the scout 4.6.1 ensemble at the station locations, and red dots the scout 4.6.7 ensemble at the station locations. Note that the observations shown include the reanalysis estimates for station bias and height effects (they are calculated from the ‘Obfit.post’ parameter in the ‘psobs_posterior’ observation feedback file) - so the ‘observations’ for the two runs are not necessarily the same (different bias estimates).</p>
+<p>The difference between the two scout runs is small.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Script to make an individual frame - takes year, month, day, and hour as command-line options:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
-<span class="c1"># Plot v3, v4.6.1 and the results at the new stations</span>
+<span class="c1"># Plot v4.6.1, v4.6.7 and the results at the new stations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">math</span>
@@ -136,7 +136,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
                       <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">hour</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">hour</span><span class="o">%</span><span class="mi">1</span><span class="o">*</span><span class="mi">60</span><span class="p">))</span>
 
 <span class="c1"># Where to put the plots?</span>
-<span class="n">opdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/images/Yangtze_1931_v3_v_4.6.1&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">)</span>
+<span class="n">opdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/images/Yangtze_1931_v4.6.1_v_4.6.7&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">opdir</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">opdir</span><span class="p">)</span>
 
@@ -174,11 +174,9 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="n">mg</span><span class="o">.</span><span class="n">background</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">ax_left</span><span class="p">)</span>
 <span class="n">land_img_left</span><span class="o">=</span><span class="n">ax_left</span><span class="o">.</span><span class="n">background_img</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;GreyT&#39;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;low&#39;</span><span class="p">)</span>
 
-<span class="c1"># 20CRv3 data</span>
-<span class="n">prmsl</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;PRMSL&#39;</span><span class="p">,</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
-
-<span class="c1"># 20CRv3 data</span>
-<span class="n">obs_t</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load_observations_fortime</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+<span class="c1"># Scout 4.6.1 data</span>
+<span class="n">prmsl</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;prmsl&#39;</span><span class="p">,</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.1&#39;</span><span class="p">)</span>
+<span class="n">obs_t</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load_observations_fortime</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.1&#39;</span><span class="p">)</span>
 
 <span class="c1"># Plot the observations</span>
 <span class="n">mg</span><span class="o">.</span><span class="n">observations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax_left</span><span class="p">,</span><span class="n">obs_t</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
@@ -203,7 +201,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
                    <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">mg</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_label</span><span class="p">(</span><span class="n">ax_left</span><span class="p">,</span>
-              <span class="s1">&#39;20CRv3&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Scout 4.6.1&#39;</span><span class="p">,</span>
               <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
               <span class="n">facecolor</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">get_facecolor</span><span class="p">(),</span>
               <span class="n">x_fraction</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
@@ -217,7 +215,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
               <span class="n">x_fraction</span><span class="o">=</span><span class="mf">0.96</span><span class="p">,</span>
               <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
 
-<span class="c1"># In the centre - spaghetti-contour plot of v4.6.1</span>
+<span class="c1"># In the centre - spaghetti-contour plot of v4.6.7</span>
 <span class="n">ax_centre</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.335</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span><span class="mf">0.323</span><span class="p">,</span><span class="mf">0.98</span><span class="p">],</span><span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
 <span class="n">ax_centre</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
 <span class="n">ax_centre</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">extent</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">projection</span><span class="p">)</span>
@@ -225,15 +223,13 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="n">mg</span><span class="o">.</span><span class="n">background</span><span class="o">.</span><span class="n">add_grid</span><span class="p">(</span><span class="n">ax_centre</span><span class="p">)</span>
 <span class="n">land_img_centre</span><span class="o">=</span><span class="n">ax_centre</span><span class="o">.</span><span class="n">background_img</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;GreyT&#39;</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;low&#39;</span><span class="p">)</span>
 
-<span class="n">prmsl_s</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;prmsl&#39;</span><span class="p">,</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.1&#39;</span><span class="p">)</span>
-<span class="n">obs_t_s</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load_observations_fortime</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.1&#39;</span><span class="p">)</span>
+<span class="n">prmsl_s</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;prmsl&#39;</span><span class="p">,</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
+<span class="n">obs_t_s</span><span class="o">=</span><span class="n">twcr</span><span class="o">.</span><span class="n">load_observations_fortime</span><span class="p">(</span><span class="n">dte</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="s1">&#39;4.6.7&#39;</span><span class="p">)</span>
 
 <span class="c1"># Plot the observations</span>
 <span class="n">mg</span><span class="o">.</span><span class="n">observations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax_centre</span><span class="p">,</span><span class="n">new_stations</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-                     <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">mg</span><span class="o">.</span><span class="n">observations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax_centre</span><span class="p">,</span><span class="n">obs_t_s</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                     <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">mg</span><span class="o">.</span><span class="n">observations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax_centre</span><span class="p">,</span><span class="n">obs_t</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+                     <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">)</span>
+<span class="n">mg</span><span class="o">.</span><span class="n">observations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax_centre</span><span class="p">,</span><span class="n">obs_t_s</span><span class="p">,</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
 <span class="c1"># PRMSL spaghetti plot</span>
 <span class="n">mg</span><span class="o">.</span><span class="n">pressure</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax_centre</span><span class="p">,</span><span class="n">prmsl_s</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;spaghetti&#39;</span><span class="p">,</span>
@@ -255,7 +251,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
                    <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">mg</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_label</span><span class="p">(</span><span class="n">ax_centre</span><span class="p">,</span>
-              <span class="s1">&#39;Scout 4.6.1&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;Scout 4.6.7&#39;</span><span class="p">,</span>
               <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
               <span class="n">facecolor</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">get_facecolor</span><span class="p">(),</span>
               <span class="n">x_fraction</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
@@ -289,13 +285,16 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
             <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
             <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 
-<span class="c1"># For each station, plot the v3 ensemble at that station</span>
-<span class="n">interpolator</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">Linear</span><span class="p">()</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">prmsl</span><span class="p">,</span> 
+<span class="c1"># For each station, plot the 4.6.1 ensemble at that station</span>
+<span class="n">interpolator</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">Linear</span><span class="p">()</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">prmsl</span><span class="p">,</span>
                                    <span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">])</span>
+<span class="c1"># Keep the ensemble mean to work out the effective ob</span>
+<span class="n">ensm</span><span class="o">=</span><span class="p">[]</span>
 <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stations</span><span class="p">)):</span>
     <span class="n">station</span><span class="o">=</span><span class="n">stations</span><span class="p">[</span><span class="n">y</span><span class="p">]</span>
     <span class="n">ensemble</span><span class="o">=</span><span class="n">interpolator</span><span class="p">([</span><span class="n">new_stations</span><span class="o">.</span><span class="n">Latitude</span><span class="p">[</span><span class="n">y</span><span class="p">],</span>
                            <span class="n">new_stations</span><span class="o">.</span><span class="n">Longitude</span><span class="p">[</span><span class="n">y</span><span class="p">]])</span>
+    <span class="n">ensm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ensemble</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
 
     <span class="n">ax_right</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ensemble</span><span class="o">.</span><span class="n">data</span><span class="o">/</span><span class="mf">100.0</span><span class="p">,</span>
                 <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mf">1.5</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mf">1.9</span><span class="p">,</span>
@@ -308,8 +307,28 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                 <span class="n">zorder</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="c1"># For each station, plot the scout ensemble at that station</span>
-<span class="n">interpolator</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">Linear</span><span class="p">()</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">prmsl_s</span><span class="p">,</span> 
+<span class="c1"># For each station, plot the observed pressure at that station</span>
+<span class="c1"># Using the 4.6.1 bias estimates</span>
+<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">stations</span><span class="p">)):</span>
+    <span class="n">obsn</span> <span class="o">=</span> <span class="n">obs_t</span><span class="p">[</span><span class="n">obs_t</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">new_stations</span><span class="o">.</span><span class="n">ID</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">obsn</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span> <span class="k">continue</span>
+    <span class="n">obsn</span><span class="o">=</span><span class="n">obsn</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="c1"># if several, just take the first</span>
+    <span class="n">obsn_dt</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">obsn</span><span class="p">[</span><span class="s1">&#39;UID&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]),</span>
+                              <span class="nb">int</span><span class="p">(</span><span class="n">obsn</span><span class="p">[</span><span class="s1">&#39;UID&#39;</span><span class="p">][</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]),</span>
+                              <span class="nb">int</span><span class="p">(</span><span class="n">obsn</span><span class="p">[</span><span class="s1">&#39;UID&#39;</span><span class="p">][</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]),</span>
+                              <span class="nb">int</span><span class="p">(</span><span class="n">obsn</span><span class="p">[</span><span class="s1">&#39;UID&#39;</span><span class="p">][</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>
+    <span class="n">tdiff</span><span class="o">=</span><span class="nb">abs</span><span class="p">((</span><span class="n">dte</span><span class="o">-</span><span class="n">obsn_dt</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="n">tdiff</span><span class="o">/</span><span class="mi">10000</span><span class="p">)</span>
+    <span class="n">obsn_d</span><span class="o">=</span><span class="n">ensm</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">+</span><span class="n">obsn</span><span class="p">[</span><span class="s1">&#39;Obfit.post&#39;</span><span class="p">]</span>
+    <span class="n">ax_right</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">(</span>
+            <span class="n">xdata</span><span class="o">=</span><span class="p">(</span><span class="n">obsn_d</span><span class="p">,</span><span class="n">obsn_d</span><span class="p">),</span> <span class="n">ydata</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mf">1.5</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mf">1.9</span><span class="p">),</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
+            <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">alpha</span><span class="p">),</span>
+            <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># For each station, plot the 4.6.7 ensemble at that station</span>
+<span class="n">interpolator</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">analysis</span><span class="o">.</span><span class="n">Linear</span><span class="p">()</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">prmsl_s</span><span class="p">,</span>
                                    <span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">])</span>
 <span class="c1"># Keep the ensemble mean to work out the effective ob</span>
 <span class="n">ensm</span><span class="o">=</span><span class="p">[]</span>
@@ -331,6 +350,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
                 <span class="n">zorder</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="c1"># For each station, plot the observed pressure at that station</span>
+<span class="c1"># Using the 4.6.7 bias estimates</span>
 <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">stations</span><span class="p">)):</span>
     <span class="n">obsn</span> <span class="o">=</span> <span class="n">obs_t_s</span><span class="p">[</span><span class="n">obs_t_s</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">new_stations</span><span class="o">.</span><span class="n">ID</span><span class="p">[</span><span class="n">y</span><span class="p">]]</span>
     <span class="k">if</span> <span class="n">obsn</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span> <span class="k">continue</span>
@@ -343,7 +363,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
     <span class="n">alpha</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="n">tdiff</span><span class="o">/</span><span class="mi">10000</span><span class="p">)</span>
     <span class="n">obsn_d</span><span class="o">=</span><span class="n">ensm</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">+</span><span class="n">obsn</span><span class="p">[</span><span class="s1">&#39;Obfit.post&#39;</span><span class="p">]</span>
     <span class="n">ax_right</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span><span class="p">(</span>
-            <span class="n">xdata</span><span class="o">=</span><span class="p">(</span><span class="n">obsn_d</span><span class="p">,</span><span class="n">obsn_d</span><span class="p">),</span> <span class="n">ydata</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mf">1.1</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mf">1.9</span><span class="p">),</span>
+            <span class="n">xdata</span><span class="o">=</span><span class="p">(</span><span class="n">obsn_d</span><span class="p">,</span><span class="n">obsn_d</span><span class="p">),</span> <span class="n">ydata</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="mf">1.1</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mf">1.5</span><span class="p">),</span>
             <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;solid&#39;</span><span class="p">,</span>
             <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">alpha</span><span class="p">),</span>
@@ -411,7 +431,7 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 <span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="c1"># Where to put the output files</span>
-<span class="n">opdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/images/Yangtze_1931_v3_v_4.6.1&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">)</span>
+<span class="n">opdir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/images/Yangtze_1931_v4.6.1_v_4.6.7&quot;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;SCRATCH&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">opdir</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">opdir</span><span class="p">)</span>
 
@@ -438,11 +458,11 @@ Please <a href="https://github.com/philip-brohan/Yangtze_floods/issues/new">rais
 </pre></div>
 </div>
 <p>To turn the thousands of images into a movie, use <a class="reference external" href="http://www.ffmpeg.org">ffmpeg</a></p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -r <span class="m">24</span> -pattern_type glob -i v3_v_v4.6.1/<span class="se">\*</span>.png <span class="se">\</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ffmpeg -r <span class="m">24</span> -pattern_type glob -i v4.6.1_v_v4.6.7/<span class="se">\*</span>.png <span class="se">\</span>
        -c:v libx264 -threads <span class="m">16</span> -preset slow -tune animation <span class="se">\</span>
        -profile:v high -level <span class="m">4</span>.2 -pix_fmt yuv420p <span class="se">\</span>
        -b:v 5M -maxrate 5M -bufsize 20M <span class="se">\</span>
-       -c:a copy v3_v_v4.6.1.mp4
+       -c:a copy v4.6.1_v_v4.6.7.mp4
 </pre></div>
 </div>
 </div>
