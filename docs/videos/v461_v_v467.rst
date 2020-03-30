@@ -3,6 +3,7 @@ Weather in China in 1931 - assimilation experiment
 
 .. seealso:: :doc:`Video version <v461_v_v467_video>`
 
+Scout 4.6.7 is identical to scout 4.6.1 except that it reduces the assimilation parameter 'relaxation to prior' from 0.9 to 0.7 in the northern hemisphere and the tropics. This increases the power of the observations to reduce the spread in the ensemble, at the cost of reducing the resistance of the reanalysis to model error.
 
 .. figure:: ../../analyses/videos/v4.6.1_v_v4.6.7/v461_v_v467_1930110100.png
    :width: 95%
@@ -13,7 +14,7 @@ Weather in China in 1931 - assimilation experiment
 
 The blue lines are contours of the individual ensemble members. Black lines are contours of the ensemble mean. The green shading shows the uncertainty in each contour - the amount of shading shows the probability there is a contour at each location (estimated from the reanalysis ensemble). The yellow dots mark pressure observations assimilated while making the field shown. Red dots are additional station pressures assimilated by the scout run only.
 
-The right panel compares the two ensembles at the :doc:`new stations <../new_stations/new_stations>` (assimilated in both scout runs): Black lines show the observed pressures, blue dots the original 20CRv3 ensemble at the station locations, and red dots the 20CR ensemble after assimilating all the observations except the observation at that location. Note that the observations shown include the reanalysis estimates for station bias and height effects (they are calculated from the 'Obfit.post' parameter in the 'psobs_posterior' observation feedback file) - so the 'observations; for the two runs are not necessarily the same (different bias estimates).
+The right panel compares the two ensembles at the :doc:`new stations <../new_stations/new_stations>` (assimilated in both scout runs): Black lines show the observed pressures, blue dots the scout 4.6.1 ensemble at the station locations, and red dots the scout 4.6.7 ensemble at the station locations. Note that the observations shown include the reanalysis estimates for station bias and height effects (they are calculated from the 'Obfit.post' parameter in the 'psobs_posterior' observation feedback file) - so the 'observations' for the two runs are not necessarily the same (different bias estimates).
 
 The difference between the two scout runs is small.
 
