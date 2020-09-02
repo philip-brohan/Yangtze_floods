@@ -11,52 +11,24 @@
 import IRData.twcr as twcr
 import datetime
 
-for month in (10,11,12):
+for month in (10, 11, 12):
     try:
-        twcr.fetch('observations',
-                   datetime.datetime(1930,month,1),
-                    version='4.6.7')
-        twcr.fetch('prmsl',
-                   datetime.datetime(1930,month,1),
-                   version='4.6.7')
-        twcr.fetch('prate',
-                   datetime.datetime(1930,month,1),
-                   version='4.6.7')
-        twcr.fetch('tmp',
-                   datetime.datetime(1930,month,1),
-                   height=2,
-                   version='4.6.7')
-        twcr.fetch('uwnd.10m',
-                   datetime.datetime(1930,month,1),
-                   version='4.6.7')
-        twcr.fetch('vwnd.10m',
-                   datetime.datetime(1930,month,1),
-                   version='4.6.7')
+        twcr.fetch("observations", datetime.datetime(1930, month, 1), version="4.6.7")
+        twcr.fetch("prmsl", datetime.datetime(1930, month, 1), version="4.6.7")
+        twcr.fetch("prate", datetime.datetime(1930, month, 1), version="4.6.7")
+        twcr.fetch("tmp", datetime.datetime(1930, month, 1), height=2, version="4.6.7")
+        twcr.fetch("uwnd.10m", datetime.datetime(1930, month, 1), version="4.6.7")
+        twcr.fetch("vwnd.10m", datetime.datetime(1930, month, 1), version="4.6.7")
     except:
         print("Failed retrieval for 1930-%02" % month)
 
-for month in (1,2,3,4,5,6,7,8,9):
+for month in (1, 2, 3, 4, 5, 6, 7, 8, 9):
     try:
-        twcr.fetch('observations',
-                   datetime.datetime(1931,month,1),
-                   version='4.6.7')
-        twcr.fetch('prmsl',
-                   datetime.datetime(1931,month,1),
-                   version='4.6.7')
-        twcr.fetch('prate',
-                   datetime.datetime(1931,month,1),
-                   version='4.6.7')
-        twcr.fetch('tmp',
-                   datetime.datetime(1931,month,1),
-                   height=2,
-                   version='4.6.7')
-        twcr.fetch('uwnd.10m',
-                   datetime.datetime(1931,month,1),
-                   version='4.6.7')
-        twcr.fetch('vwnd.10m',
-                   datetime.datetime(1931,month,1),
-                   version='4.6.7')
+        twcr.fetch("observations", datetime.datetime(1931, month, 1), version="4.6.7")
+        twcr.fetch("prmsl", datetime.datetime(1931, month, 1), version="4.6.7")
+        twcr.fetch("prate", datetime.datetime(1931, month, 1), version="4.6.7")
+        twcr.fetch("tmp", datetime.datetime(1931, month, 1), height=2, version="4.6.7")
+        twcr.fetch("uwnd.10m", datetime.datetime(1931, month, 1), version="4.6.7")
+        twcr.fetch("vwnd.10m", datetime.datetime(1931, month, 1), version="4.6.7")
     except Exception:
         print("Failed retrieval for 1931-%02" % month)
-
-
