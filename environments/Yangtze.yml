@@ -1,0 +1,15 @@
+name: Yangtze
+channels:
+  - default
+  - conda-forge
+dependencies:
+  - python=3.7
+  - iris=2.4.*
+  - cartopy=0.17.*
+# Optional, code formatter
+  - black
+# Philip's libraries
+  - pip
+  - pip:
+    - git+ssh://git@github.com/philip-brohan/IRData.git@9c420dc3e8d2b446b181132f1bac5fb7e8b49be6
+    - git+ssh://git@github.com/philip-brohan/Meteorographica.git@819cae3e6a543b9bff959fea8bcd1572363d9f36
