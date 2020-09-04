@@ -1,0 +1,1 @@
+Near-surface temperature, wind, and precipitation from a scout run of the 20th Century Reanalysis (20CR). Black circles mark observations assimilated in 20CR version 3, red dots mark additional station observations (used to improve the scout run) provided by CMA and the international ACRE community.
