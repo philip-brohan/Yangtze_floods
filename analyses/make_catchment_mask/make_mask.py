@@ -14,10 +14,15 @@ rivers = geopandas.read_file("Major_Basins_of_the_World.shp")
 yangtze = rivers[rivers["NAME"] == "Yangtze"]
 
 # Get a 20CRv3 field to use as the grid
+#rGrid = iris.load_cube(
+#    "%s/20CR/version_3/normals/PRMSL/climatology_1981_2010/010100.nc"
+#    % os.getenv("DATADIR")
+#)
 rGrid = iris.load_cube(
-    "%s/20CR/version_3/normals/PRMSL/climatology_1981_2010/010100.nc"
-    % os.getenv("DATADIR")
+    "%s/20CR/version_3/monthly/2015/PRMSL.2015.mnmean_mem080.nc" 
+    % os.getenv("SCRATCH")
 )
+rGrid = rGrid.collapsed('time',iris.analysis.MEAN)
 
 # Convert the field to an in=1, out=0 mask
 lats = rGrid.coord("latitude").points
@@ -36,4 +41,4 @@ for lat, lon in zip(lat2, lon2):
 mask = numpy.array(mask).reshape(lon2d.shape)
 mask = mask * 1
 rGrid.data = mask
-iris.save(rGrid, "mask.nc")
+iris.save(rGrid, "mask.PRMSL.256x512.nc")
