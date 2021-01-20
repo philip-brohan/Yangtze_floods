@@ -71,7 +71,7 @@ ax_full.add_patch(
 )
 
 ax = fig.add_axes([0.04,0.07,0.95,0.92])
-ax.set_xlim(xmin=1926,xmax=1937),
+ax.set_xlim(xmin=1930,xmax=1932),
 ax.set_ylim(ymin=0,ymax=170)
 ax.set_xticks([1927,1928,1929,1930,1931,1932,1933,1934,1935])
 #ax.set_yticks([-4,-3,-2,-1,0,1,2,3,4])
