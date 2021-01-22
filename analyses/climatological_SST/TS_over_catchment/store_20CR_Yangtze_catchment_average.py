@@ -60,6 +60,7 @@ dte = datetime.datetime(
     args.year, args.month, args.day, int(args.hour), int((args.hour % 1) * 60)
 )
 rdata = twcr.load(args.var, dte, version=args.version)
+rdata = iris.util.squeeze(rdata)
 rdata.coord("latitude").guess_bounds()
 rdata.coord("longitude").guess_bounds()
 grid_areas = iris.analysis.cartography.area_weights(rdata)

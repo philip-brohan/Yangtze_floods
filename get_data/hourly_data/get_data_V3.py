@@ -32,6 +32,16 @@ for year in range(1926, 1936):
     except:
         time.sleep(300)
         twcr.fetch("TMPS", datetime.datetime(year, 1, 1), version="3")
+    try:
+        twcr.fetch("PWAT", datetime.datetime(year, 1, 1), version="3")
+    except:
+        time.sleep(300)
+        twcr.fetch("PWAT", datetime.datetime(year, 1, 1), version="3")
+    try:
+        twcr.fetch("WEASD", datetime.datetime(year, 1, 1), version="3")
+    except:
+        time.sleep(300)
+        twcr.fetch("WEASD", datetime.datetime(year, 1, 1), version="3")
 
 # Winds only for 1930 and 1931
 try:
