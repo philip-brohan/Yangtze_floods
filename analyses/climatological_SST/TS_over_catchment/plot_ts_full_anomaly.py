@@ -68,15 +68,15 @@ start = datetime.datetime(
 end = datetime.datetime(args.endyear, args.endmonth, args.endday, args.endhour)
 
 
-def fromversion(version, year_offset=0):
+def fromversion(version, year_offset=0, pad_days=0):
     dts = []
     ndata = None
     lstart = datetime.datetime(
         start.year + year_offset, start.month, start.day, start.hour
-    ) - datetime.timedelta(days=30)
+    ) - datetime.timedelta(days=pad_days)
     lend = datetime.datetime(
         end.year + year_offset, end.month, end.day, end.hour
-    ) + datetime.timedelta(days=30)
+    ) + datetime.timedelta(days=pad_days)
     current = lstart
     while current <= lend:
         opf = "%s/20CRv3_Yangtze_data/version_%s/%s/%04d/%02d/%02d/%02d_00.pkl" % (
@@ -122,12 +122,50 @@ def movingaverage(dates, values, window):
     epoch = dates[0]
     dates = numpy.array([(d - epoch).total_seconds() for d in dates])
     dms = numpy.convolve(dates, weights, "valid").tolist()
-    dms = [epoch + datetime.timedelta(seconds=d) for d in dms]
+    # Need to use a multiple of 8 for window, or we alias the 
+    # diurnal cycle into the smoothed data. => window is even, so
+    # smoothed dates are moved back 1/2 a timestep (5400s). Shift them
+    # back so they match the raw data.
+    dms = [epoch + datetime.timedelta(seconds=d+5400) for d in dms]
     return (dms, sma)
 
+# Get all the surrounding years data
+ndda = []
+ndd_a = None
+ndd_c = 0
+for dec in [-4, -3, -2, -1, 1, 2, 3, 4]:
+    # Add the running mean of the ensemble mean for the comparison dataset
+    (ndd, dtsd) = fromversion(args.version, year_offset=dec, pad_days=31)
+    ndda.append(ndd)
+    if ndd_a is None:
+        ndd_a = ndd.copy()
+    else:
+        ndd_a += ndd
+    ndd_c += 1
 
-# Get the 3-hourly data
+# Make smoothed mean - acts as climatology
+(dtscrm, crmem) = movingaverage(dtsd, ensm(ndd_a)/ndd_c, 30 * 8)
+
+# difference a time-series from the climatology
+#  complication is that the dates may not line up
+def anomalise(sdata,sdates,cdata,cdates):
+    offset = cdates.index(sdates[0])
+    scmp = cdata[offset:(offset+len(sdates))]
+    if len(sdata.shape)==2:
+        scmp = numpy.reshape(scmp,(scmp.shape[0],1))
+    return(sdata-scmp)
+
+# Truncate one time-series to the length of another
+def truncate(sdata,sdates,cdata,cdates):
+    ostart = sdates.index(cdates[0])
+    oend = sdates.index(cdates[-1])
+    rdata = sdata[ostart:oend]
+    rdates = sdates[ostart:oend]
+    return(rdates,rdata)
+
+# Get the 3-hourly data as anomalies
 (ndata, dts) = fromversion(args.version, year_offset=0)
+ndata = anomalise(ndata,dts,crmem,dtscrm)
 if args.ymin is None:
     args.ymin = numpy.amin(ndata) * args.yscale
 if args.ymax is None:
@@ -175,6 +213,18 @@ for yr in range(start.year, end.year + 1):
                 )
             )
 
+# Mark the Zero line
+ax.add_line(
+    Line2D(
+        [start, end],
+        [0, 0],
+        linewidth=0.25,
+        color=(0, 0, 0, 1),
+        alpha=1.0,
+        zorder=100,
+    )
+)
+
 # 3-hourly, all ensemble members
 for m in range(80):
     ax.add_line(
@@ -204,6 +254,7 @@ ax.add_line(
 if args.comparison is not None:
     # Add the running mean of the ensemble mean for the comparison dataset
     (nd2, dts2) = fromversion(args.comparison)
+    nd2 = anomalise(nd2,dts2,crmem,dtscrm)
     (dtsrm, rmem) = movingaverage(dts2, ensm(nd2) * args.yscale, 3 * 8)
     ax.add_line(
         Line2D(
@@ -216,17 +267,12 @@ if args.comparison is not None:
         )
     )
 
-ndd_a = None
-ndd_c = 0
-for dec in [-4, -3, -2, -1, 1, 2, 3, 4]:
-    # Add the running mean of the ensemble mean for the comparison dataset
-    (ndd, dtsd) = fromversion(args.version, year_offset=dec)
-    (dtsrm, rmem) = movingaverage(dtsd, ensm(ndd) * args.yscale, 3 * 8)
-    if ndd_a is None:
-        ndd_a = ndd.copy()
-    else:
-        ndd_a += ndd
-    ndd_c += 1
+# Add the surrounding years smoothed series
+for idx in range(len(ndda)):
+    ndde = ensm(ndda[idx])
+    (dtst,nddt) = truncate(ndde,dtsd,crmem,dtscrm)
+    nd2 = anomalise(nddt,dtst,crmem,dtscrm)
+    (dtsrm, rmem) = movingaverage(dtst, nd2 * args.yscale, 3 * 8)
     ax.add_line(
         Line2D(
             dtsrm,
@@ -237,17 +283,6 @@ for dec in [-4, -3, -2, -1, 1, 2, 3, 4]:
             zorder=150,
         )
     )
-(dtsrm, rmem) = movingaverage(dtsd, ensm(ndd_a) * args.yscale / ndd_c, 30 * 8)
-ax.add_line(
-    Line2D(
-        dtsrm,
-        rmem,
-        linewidth=2.0,
-        color=(0, 0, 1, 1),
-        alpha=0.5,
-        zorder=175,
-    )
-)
 
 
-fig.savefig("%s.png" % args.var)
+fig.savefig("%s_anomalies.png" % args.var)
