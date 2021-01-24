@@ -122,12 +122,13 @@ def movingaverage(dates, values, window):
     epoch = dates[0]
     dates = numpy.array([(d - epoch).total_seconds() for d in dates])
     dms = numpy.convolve(dates, weights, "valid").tolist()
-    # Need to use a multiple of 8 for window, or we alias the 
+    # Need to use a multiple of 8 for window, or we alias the
     # diurnal cycle into the smoothed data. => window is even, so
     # smoothed dates are moved back 1/2 a timestep (5400s). Shift them
     # back so they match the raw data.
-    dms = [epoch + datetime.timedelta(seconds=d+5400) for d in dms]
+    dms = [epoch + datetime.timedelta(seconds=d + 5400) for d in dms]
     return (dms, sma)
+
 
 # Get all the surrounding years data
 ndda = []
@@ -144,28 +145,30 @@ for dec in [-4, -3, -2, -1, 1, 2, 3, 4]:
     ndd_c += 1
 
 # Make smoothed mean - acts as climatology
-(dtscrm, crmem) = movingaverage(dtsd, ensm(ndd_a)/ndd_c, 30 * 8)
+(dtscrm, crmem) = movingaverage(dtsd, ensm(ndd_a) / ndd_c, 30 * 8)
 
 # difference a time-series from the climatology
 #  complication is that the dates may not line up
-def anomalise(sdata,sdates,cdata,cdates):
+def anomalise(sdata, sdates, cdata, cdates):
     offset = cdates.index(sdates[0])
-    scmp = cdata[offset:(offset+len(sdates))]
-    if len(sdata.shape)==2:
-        scmp = numpy.reshape(scmp,(scmp.shape[0],1))
-    return(sdata-scmp)
+    scmp = cdata[offset : (offset + len(sdates))]
+    if len(sdata.shape) == 2:
+        scmp = numpy.reshape(scmp, (scmp.shape[0], 1))
+    return sdata - scmp
+
 
 # Truncate one time-series to the length of another
-def truncate(sdata,sdates,cdata,cdates):
+def truncate(sdata, sdates, cdata, cdates):
     ostart = sdates.index(cdates[0])
     oend = sdates.index(cdates[-1])
     rdata = sdata[ostart:oend]
     rdates = sdates[ostart:oend]
-    return(rdates,rdata)
+    return (rdates, rdata)
+
 
 # Get the 3-hourly data as anomalies
 (ndata, dts) = fromversion(args.version, year_offset=0)
-ndata = anomalise(ndata,dts,crmem,dtscrm)
+ndata = anomalise(ndata, dts, crmem, dtscrm)
 if args.ymin is None:
     args.ymin = numpy.amin(ndata) * args.yscale
 if args.ymax is None:
@@ -254,7 +257,7 @@ ax.add_line(
 if args.comparison is not None:
     # Add the running mean of the ensemble mean for the comparison dataset
     (nd2, dts2) = fromversion(args.comparison)
-    nd2 = anomalise(nd2,dts2,crmem,dtscrm)
+    nd2 = anomalise(nd2, dts2, crmem, dtscrm)
     (dtsrm, rmem) = movingaverage(dts2, ensm(nd2) * args.yscale, 3 * 8)
     ax.add_line(
         Line2D(
@@ -270,8 +273,8 @@ if args.comparison is not None:
 # Add the surrounding years smoothed series
 for idx in range(len(ndda)):
     ndde = ensm(ndda[idx])
-    (dtst,nddt) = truncate(ndde,dtsd,crmem,dtscrm)
-    nd2 = anomalise(nddt,dtst,crmem,dtscrm)
+    (dtst, nddt) = truncate(ndde, dtsd, crmem, dtscrm)
+    nd2 = anomalise(nddt, dtst, crmem, dtscrm)
     (dtsrm, rmem) = movingaverage(dtst, nd2 * args.yscale, 3 * 8)
     ax.add_line(
         Line2D(
