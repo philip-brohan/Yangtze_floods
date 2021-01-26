@@ -2,8 +2,8 @@
 
 # Make all the timeseries plots for Hankow.
 
-export lat='30.35'
-export lon='114.18'
+export lat='28.12'
+export lon='112.47'
 
 for var in PRMSL PRATE TMP2m PWAT WEASD
 do

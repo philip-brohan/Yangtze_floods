@@ -39,10 +39,11 @@ while current < end:
     if not os.path.isfile(opfile):
         print(
             (
-                "./store_20CR_value_at_point.py --version=%s --year=%d --month=%d"
+                "%s/store_20CR_value_at_point.py --version=%s --year=%d --month=%d"
                 + "  --day=%d --hour=%d --lat=%f --lon=%f --var=%s"
             )
             % (
+                os.path.dirname(__file__),
                 args.version,
                 current.year,
                 current.month,
