@@ -173,7 +173,7 @@ fig = Figure(
     tight_layout=None,
 )
 canvas = FigureCanvas(fig)
-font = {"family": "sans-serif", "sans-serif": "Arial", "weight": "normal", "size": 14}
+font = {"family": "sans-serif", "sans-serif": "Arial", "weight": "normal", "size": 8}
 matplotlib.rc("font", **font)
 ax = fig.add_axes([0, 0, 1, 1])
 ax.set_axis_off()  # Don't want surrounding x and y axis
@@ -213,16 +213,8 @@ pImg = ax.pcolorfast(
 pField = catchmentMask.regrid(plotCube, iris.analysis.Linear())
 lats = pField.coord("latitude").points
 lons = pField.coord("longitude").points
-pImg = ax.pcolorfast(
-    lons,
-    lats,
-    pField.data,
-    cmap=matplotlib.colors.ListedColormap(((0.5, 0.5, 0.5, 0), (0.5, 0.5, 0.5, 1))),
-    vmin=0,
-    vmax=1,
-    alpha=1.0,
-    zorder=30,
-)
+matplotlib.rcParams['hatch.linewidth'] = 0.1
+stip = ax.contourf(lons,lats,pField.data,levels=[0,0.99,1.01,2],colors='none',hatches=[None,'.',None],zorder=1000)
 
 # Plot the weather variable
 pField = var.regrid(plotCube, iris.analysis.Linear())
@@ -230,23 +222,65 @@ lats = pField.coord("latitude").points
 lons = pField.coord("longitude").points
 # Details are different for each variable
 if args.var == "PRMSL":
-    pImg = ax.pcolorfast(
-        lons,
-        lats,
+    pImg = ax.contourf(
+        lons,lats,
         pField.data,
-        cmap=cmocean.tools.lighten(cmocean.cm.balance, 0.5),
-        #        vmin=0,
-        #        vmax=1,
+        31,
+        cmap=cmocean.cm.diff,
+        vmin=100000,
+        vmax=103150,
+        alpha=0.7,
+        antialiased=True,
         zorder=50,
     )
 if args.var == "TMP2m":
-    pImg = ax.pcolorfast(
-        lons,
-        lats,
+    pImg = ax.contourf(
+        lons,lats,
         pField.data,
-        cmap=cmocean.tools.lighten(cmocean.cm.balance, 0.5),
-        #        vmin=0,
-        #        vmax=1,
+        31,
+        cmap=cmocean.cm.balance,
+        vmin=240,
+        vmax=310,
+        alpha=0.5,
+        antialiased=True,
+        zorder=50,
+    )
+if args.var == "PRATE":
+    pImg = ax.contourf(
+        lons,lats,
+        pField.data,
+        31,
+        cmap=cmocean.cm.rain,
+        vmin=0.0,
+        vmax=0.0005,
+        alpha=0.5,
+        antialiased=True,
+        zorder=50,
+    )
+if args.var == "PWAT":
+    pImg = ax.contourf(
+        lons,lats,
+        pField.data,
+        31,
+        cmap=cmocean.cm.speed,
+        vmin=0.0,
+        vmax=70.0,
+        alpha=0.5,
+        antialiased=True,
+        zorder=50,
+    )
+if args.var == "WEASD":
+#    print(numpy.max(pField.data))
+#    print(numpy.min(pField.data))
+    pImg = ax.contourf(
+        lons,lats,
+        pField.data,
+        31,
+        cmap=cmocean.cm.ice_r,
+        vmin=0.0,
+        vmax=350.0,
+        alpha=0.5,
+        antialiased=True,
         zorder=50,
     )
 
