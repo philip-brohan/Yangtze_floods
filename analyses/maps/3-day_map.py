@@ -278,7 +278,7 @@ if args.var == "WEASD":
         31,
         cmap=cmocean.cm.ice_r,
         vmin=0.0,
-        vmax=350.0,
+        vmax=100.0,
         alpha=0.5,
         antialiased=True,
         zorder=50,
