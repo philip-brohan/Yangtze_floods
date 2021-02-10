@@ -2,6 +2,7 @@
 import os
 import datetime
 import numpy
+import math
 
 import iris
 import iris.time
@@ -19,7 +20,7 @@ landMask = iris.load_cube(
     "%s/fixed_fields/land_mask/opfc_global_2019.nc" % os.getenv("DATADIR")
 )
 catchmentMask = iris.load_cube(
-    "%s/../../make_catchment_mask/mask.plot.nc" % os.path.dirname(__file__)
+    "%s/../../../make_catchment_mask/mask.boundary.nc" % os.path.dirname(__file__)
 )
 
 # Load the 20CR data
@@ -107,8 +108,6 @@ def makePlotCube(cs, resolution, xmin, xmax, ymin, ymax):
     return plot_cube
 
 
-
-
 def miniMap(
     ax,
     year,
@@ -122,9 +121,7 @@ def miniMap(
     zorder=100,
 ):
 
-    dte = datetime.datetime(
-        year, month, day, int(hour), int(hour % 1 * 60)
-    )
+    dte = datetime.datetime(year, month, day, int(hour), int(hour % 1 * 60))
     varF = loadSmoothed(var, dte, 36, version)
 
     # Lat and lon range (in rotated-pole coordinates) for plot
@@ -133,7 +130,7 @@ def miniMap(
     ax.set_aspect("auto")
 
     plotCube = makePlotCube(
-        iris.coord_systems.RotatedGeogCS(55.5, 287.5, 0),
+        iris.coord_systems.RotatedGeogCS(60.5, 287.5, 0),
         0.05,
         xscale * -0.5,
         xscale * 0.5,
@@ -161,7 +158,9 @@ def miniMap(
         lons,
         lats,
         pField.data,
-        cmap=matplotlib.colors.ListedColormap(((0.4, 0.4, 0.4, 0), (0.4, 0.4, 0.4, 1))),
+        cmap=matplotlib.colors.ListedColormap(
+            ((0.4, 0.4, 0.4, 0), (0.4, 0.4, 0.4, 1.0))
+        ),
         vmin=0,
         vmax=1,
         alpha=1.0,
@@ -200,17 +199,35 @@ def miniMap(
             zorder=zorder + 50,
         )
     if var == "PRATE":
-        pImg = ax.contourf(
+        cmap = cmocean.cm.rain
+        stcmap = cmap(numpy.arange(cmap.N))
+        for i in numpy.arange(cmap.N):
+            stcmap[i, 3] = 1 / (1 + math.exp(-0.25 * (i - cmap.N / 8)))
+        stcmap = matplotlib.colors.ListedColormap(stcmap)
+        pImg = ax.pcolormesh(
             lons,
             lats,
             pField.data,
-            31,
-            cmap=cmocean.cm.rain,
+            cmap=stcmap,
             vmin=0.0,
             vmax=0.0005,
-            alpha=1.0,
-            antialiased=True,
+            shading="gouraud",
             zorder=zorder + 50,
+        )
+        pField = catchmentMask.regrid(plotCube, iris.analysis.Linear())
+        lats = pField.coord("latitude").points
+        lons = pField.coord("longitude").points
+        pImg = ax.pcolorfast(
+            lons,
+            lats,
+            pField.data,
+            cmap=matplotlib.colors.ListedColormap(
+                ((1.0, 0.84, 0.0, 0), (1.0, 0.84, 0.0, 1.0))
+            ),
+            vmin=0,
+            vmax=1,
+            alpha=1.0,
+            zorder=zorder + 2000,
         )
     if var == "PWAT":
         pImg = ax.contourf(

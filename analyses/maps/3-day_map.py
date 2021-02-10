@@ -4,6 +4,7 @@ import os
 import datetime
 import numpy
 import pickle
+import math
 
 import iris
 import iris.time
@@ -213,8 +214,9 @@ pImg = ax.pcolorfast(
 pField = catchmentMask.regrid(plotCube, iris.analysis.Linear())
 lats = pField.coord("latitude").points
 lons = pField.coord("longitude").points
-matplotlib.rcParams['hatch.linewidth'] = 0.1
-stip = ax.contourf(lons,lats,pField.data,levels=[0,0.99,1.01,2],colors='none',hatches=[None,'.',None],zorder=1000)
+
+#matplotlib.rcParams['hatch.linewidth'] = 0.1
+#stip = ax.contourf(lons,lats,pField.data,levels=[0,0.99,1.01,2],colors='none',hatches=[None,'.',None],zorder=1000)
 
 # Plot the weather variable
 pField = var.regrid(plotCube, iris.analysis.Linear())
@@ -246,15 +248,19 @@ if args.var == "TMP2m":
         zorder=50,
     )
 if args.var == "PRATE":
-    pImg = ax.contourf(
+    # Make the low-rain sections of the colourmap transparent
+    cmap = cmocean.cm.rain
+    stcmap = cmap(numpy.arange(cmap.N))
+    for i in numpy.arange(cmap.N): 
+         stcmap[i,3] = 1/(1+math.exp(-0.25*(i-cmap.N/8)))
+    stcmap = matplotlib.colors.ListedColormap(stcmap)
+    pImg = ax.pcolormesh(
         lons,lats,
         pField.data,
-        31,
-        cmap=cmocean.cm.rain,
+        cmap=stcmap,
         vmin=0.0,
         vmax=0.0005,
-        alpha=0.5,
-        antialiased=True,
+        shading='gouraud',
         zorder=50,
     )
 if args.var == "PWAT":

@@ -13,6 +13,7 @@ import iris
 import numpy
 import datetime
 import pickle
+import math
 
 import matplotlib
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -85,25 +86,26 @@ end = datetime.datetime(args.endyear, args.endmonth, args.endday, args.endhour)
 
 # Decode the map specification
 def decodeSpec(mapSpec):
-    result={}
+    result = {}
     mYear = int(mapSpec[0:4])
     mMonth = int(mapSpec[5:7])
     mDay = int(mapSpec[8:10])
     mHour = int(mapSpec[11:13])
-    result['mdte']= datetime.datetime(mYear, mMonth, mDay, mHour)
+    result["mdte"] = datetime.datetime(mYear, mMonth, mDay, mHour)
     pYear = int(mapSpec[14:18])
     pMonth = int(mapSpec[19:21])
     pDay = int(mapSpec[22:24])
     pHour = int(mapSpec[25:27])
-    result['pdte'] = datetime.datetime(pYear, pMonth, pDay, pHour)
+    result["pdte"] = datetime.datetime(pYear, pMonth, pDay, pHour)
     resid = mapSpec[28:]
     if resid.find("_") == -1:
-        result['ypos'] = float(resid)
-        result['scale'] = 1.0
+        result["ypos"] = float(resid)
+        result["scale"] = 1.0
     else:
-        result['ypos'] = float(resid[: resid.find("_")])
-        result['scale'] = float(resid[(resid.find("_") + 1) :])
+        result["ypos"] = float(resid[: resid.find("_")])
+        result["scale"] = float(resid[(resid.find("_") + 1) :])
     return result
+
 
 def fromversion(version, year_offset=0):
     dts = []
@@ -170,7 +172,7 @@ if args.ymin is None:
     args.ymin = numpy.amin(ndata) * args.yscale
 if args.ymax is None:
     args.ymax = numpy.amax(ndata) * args.yscale
-        
+
 # Convert units between axes units (for plotting) and figure units
 #  (for axes locations).
 def figureToAxes(x, y):
@@ -188,18 +190,19 @@ def axesToFigure(x, y):
     fty = fry * 0.92 + 0.06
     return (ftx, fty)
 
+
 # Expand the range if necessary to fit in the figures
 if args.map is not None:
     for mapSpec in args.map:
         dSpec = decodeSpec(mapSpec)
-        if dSpec['ypos']+dSpec['scale']*(args.ymax-args.ymin)/6>args.ymax:
-           args.ymax = dSpec['ypos']+dSpec['scale']*(args.ymax-args.ymin)/6
-        if dSpec['ypos']-dSpec['scale']*(args.ymax-args.ymin)/6<args.ymin:
-           args.ymin = dSpec['ypos']-dSpec['scale']*(args.ymax-args.ymin)/6       
+        if dSpec["ypos"] + dSpec["scale"] * (args.ymax - args.ymin) / 6 > args.ymax:
+            args.ymax = dSpec["ypos"] + dSpec["scale"] * (args.ymax - args.ymin) / 6
+        if dSpec["ypos"] - dSpec["scale"] * (args.ymax - args.ymin) / 6 < args.ymin:
+            args.ymin = dSpec["ypos"] - dSpec["scale"] * (args.ymax - args.ymin) / 6
 
 # Plot the resulting array as a set of line graphs
 fig = Figure(
-    figsize=(19.2, 6*args.yfigscale),  # Width, Height (inches)
+    figsize=(19.2, 6 * args.yfigscale),  # Width, Height (inches)
     dpi=300,
     facecolor=(0.5, 0.5, 0.5, 1),
     edgecolor=None,
@@ -319,7 +322,7 @@ def addMap(dtime, x, y, scale=1.0):
     size = 0.12 * scale
     figC = axesToFigure(x, y)
     ax_map = fig.add_axes(
-        [figC[0] - size / 2, figC[1] - size * 0.9, size, size * 1.8/args.yfigscale],
+        [figC[0] - size / 2, figC[1] - size * 0.9, size, size * 1.8 / args.yfigscale],
     )
     ax_map.set_axis_off()
     miniMap(
@@ -336,24 +339,27 @@ def addMap(dtime, x, y, scale=1.0):
     cdte = edtsrm.index(dtime - datetime.timedelta(minutes=90))
     cx = edtsrm[cdte]
     cy = ermem[cdte]
-    if figC[1] > 0.5:
-        axC = figureToAxes(figC[0], figC[1] - size * 0.9)
+    axCB = figureToAxes(figC[0], figC[1] - size * 0.9)
+    axCT = figureToAxes(figC[0], figC[1] + size * 0.9)
+    if abs(axCT[1] - cy) > abs(axCB[1] - cy):
+        axC = axCB
     else:
-        axC = figureToAxes(figC[0], figC[1] + size * 0.9)
+        axC = axCT
     ax.add_line(
         Line2D(
             [axC[0], cx],
             [axC[1], cy],
-            linewidth=2.0,
+            linewidth=1.0,
             color=(0, 0, 0, 1),
-            alpha=0.25,
+            alpha=1.0,
             zorder=1,
         )
     )
 
+
 if args.map is not None:
     for mapSpec in args.map:
         dSpec = decodeSpec(mapSpec)
-        addMap(dSpec['mdte'], dSpec['pdte'], dSpec['ypos'], scale=dSpec['scale'])
+        addMap(dSpec["mdte"], dSpec["pdte"], dSpec["ypos"], scale=dSpec["scale"])
 
 fig.savefig("%s_story.png" % args.var)
