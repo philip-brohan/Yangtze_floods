@@ -166,6 +166,22 @@ def miniMap(
         alpha=1.0,
         zorder=zorder + 20,
     )
+    # Plot the catchment boundary
+    pField = catchmentMask.regrid(plotCube, iris.analysis.Linear())
+    lats = pField.coord("latitude").points
+    lons = pField.coord("longitude").points
+    pImg = ax.pcolorfast(
+        lons,
+        lats,
+        pField.data,
+        cmap=matplotlib.colors.ListedColormap(
+            ((1.0, 0.84, 0.0, 0), (1.0, 0.84, 0.0, 1.0))
+        ),
+        vmin=0,
+        vmax=1,
+        alpha=1.0,
+        zorder=zorder + 2000,
+    )
 
     # Plot the weather variable
     pField = varF.regrid(plotCube, iris.analysis.Linear())
@@ -214,21 +230,6 @@ def miniMap(
             shading="gouraud",
             zorder=zorder + 50,
         )
-        pField = catchmentMask.regrid(plotCube, iris.analysis.Linear())
-        lats = pField.coord("latitude").points
-        lons = pField.coord("longitude").points
-        pImg = ax.pcolorfast(
-            lons,
-            lats,
-            pField.data,
-            cmap=matplotlib.colors.ListedColormap(
-                ((1.0, 0.84, 0.0, 0), (1.0, 0.84, 0.0, 1.0))
-            ),
-            vmin=0,
-            vmax=1,
-            alpha=1.0,
-            zorder=zorder + 2000,
-        )
     if var == "PWAT":
         pImg = ax.contourf(
             lons,
@@ -245,15 +246,18 @@ def miniMap(
     if var == "WEASD":
         #    print(numpy.max(pField.data))
         #    print(numpy.min(pField.data))
-        pImg = ax.contourf(
+        cmap = cmocean.cm.ice_r
+        stcmap = cmap(numpy.arange(cmap.N))
+        for i in numpy.arange(cmap.N):
+            stcmap[i, 3] = 1 / (1 + math.exp(-0.25 * (i - cmap.N / 8)))
+        stcmap = matplotlib.colors.ListedColormap(stcmap)
+        pImg = ax.pcolormesh(
             lons,
             lats,
             pField.data,
-            31,
-            cmap=cmocean.cm.ice_r,
+            cmap=stcmap,
             vmin=0.0,
             vmax=100.0,
-            alpha=0.5,
-            antialiased=True,
+            shading="gouraud",
             zorder=zorder + 50,
         )

@@ -191,15 +191,6 @@ def axesToFigure(x, y):
     return (ftx, fty)
 
 
-# Expand the range if necessary to fit in the figures
-if args.map is not None:
-    for mapSpec in args.map:
-        dSpec = decodeSpec(mapSpec)
-        if dSpec["ypos"] + dSpec["scale"] * (args.ymax - args.ymin) / 6 > args.ymax:
-            args.ymax = dSpec["ypos"] + dSpec["scale"] * (args.ymax - args.ymin) / 6
-        if dSpec["ypos"] - dSpec["scale"] * (args.ymax - args.ymin) / 6 < args.ymin:
-            args.ymin = dSpec["ypos"] - dSpec["scale"] * (args.ymax - args.ymin) / 6
-
 # Plot the resulting array as a set of line graphs
 fig = Figure(
     figsize=(19.2, 6 * args.yfigscale),  # Width, Height (inches)
@@ -322,7 +313,12 @@ def addMap(dtime, x, y, scale=1.0):
     size = 0.12 * scale
     figC = axesToFigure(x, y)
     ax_map = fig.add_axes(
-        [figC[0] - size / 2, figC[1] - size * 0.9, size, size * 1.8 / args.yfigscale],
+        [
+            figC[0] - size / 2,
+            figC[1] - size * 0.9 / args.yfigscale,
+            size,
+            size * 1.8 / args.yfigscale,
+        ],
     )
     ax_map.set_axis_off()
     miniMap(
@@ -339,8 +335,8 @@ def addMap(dtime, x, y, scale=1.0):
     cdte = edtsrm.index(dtime - datetime.timedelta(minutes=90))
     cx = edtsrm[cdte]
     cy = ermem[cdte]
-    axCB = figureToAxes(figC[0], figC[1] - size * 0.9)
-    axCT = figureToAxes(figC[0], figC[1] + size * 0.9)
+    axCB = figureToAxes(figC[0], figC[1] - size * 0.9 / args.yfigscale)
+    axCT = figureToAxes(figC[0], figC[1] + size * 0.9 / args.yfigscale)
     if abs(axCT[1] - cy) > abs(axCB[1] - cy):
         axC = axCB
     else:
