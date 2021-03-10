@@ -60,6 +60,13 @@ parser.add_argument(
     required=False,
 )
 parser.add_argument(
+    "--comparison3",
+    help="20CR version ('3' or e.g. '4.6.5')",
+    default=None,
+    type=str,
+    required=False,
+)
+parser.add_argument(
     "--ymin", help="Y-axis minimum", type=float, default=None, required=False
 )
 parser.add_argument(
@@ -208,6 +215,21 @@ ax.add_line(
     )
 )
 
+if args.comparison3 is not None:
+    # Add the running mean of the ensemble mean for the third comparison dataset
+    (nd2, dts2) = fromversion(args.comparison3)
+    (dtsrm, rmem) = movingaverage(dts2, ensm(nd2) * args.yscale, 3 * 8)
+    ax.add_line(
+        Line2D(
+            dtsrm,
+            rmem,
+            linewidth=2.0,
+            color=(1, 0.5, 0.5, 1),
+            alpha=1,
+            zorder=280,
+        )
+    )
+
 if args.comparison is not None:
     # Add the running mean of the ensemble mean for the comparison dataset
     (nd2, dts2) = fromversion(args.comparison)
@@ -224,7 +246,7 @@ if args.comparison is not None:
     )
 
 if args.comparison2 is not None:
-    # Add the running mean of the ensemble mean for the comparison dataset
+    # Add the running mean of the ensemble mean for the second comparison dataset
     (nd2, dts2) = fromversion(args.comparison2)
     (dtsrm, rmem) = movingaverage(dts2, ensm(nd2) * args.yscale, 3 * 8)
     ax.add_line(
