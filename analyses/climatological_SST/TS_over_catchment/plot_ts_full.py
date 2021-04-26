@@ -189,16 +189,17 @@ for yr in range(start.year, end.year + 1):
                 )
             )
 
-# 3-hourly, all ensemble members
+# Plot running mean for each ensemble member
 for m in range(80):
+    (dts2, nd2) = movingaverage(dts, ndata[:, m] * args.yscale, 3 * 8)
     ax.add_line(
         Line2D(
-            dts,
-            ndata[:, m] * args.yscale,
-            linewidth=0.5,
-            color=(0, 0, 0, 1),
-            alpha=0.02,
-            zorder=200,
+            dts2,
+            nd2,
+            linewidth=1,
+            color=(0.8, 0.8, 0.8, 1),
+            alpha=1,
+            zorder=20,
         )
     )
 
@@ -254,7 +255,7 @@ if args.comparison2 is not None:
             dtsrm,
             rmem,
             linewidth=2.0,
-            color=(210/255, 105/255, 30/255, 1),
+            color=(210 / 255, 105 / 255, 30 / 255, 1),
             alpha=1,
             zorder=250,
         )

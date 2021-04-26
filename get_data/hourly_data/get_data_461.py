@@ -27,7 +27,7 @@ import datetime
 
 for month in (1, 2, 3, 4, 5, 6, 7, 8, 9):
     try:
-        twcr.fetch("observations", datetime.datetime(1931, month, 1), version="4.6.1")
+        #twcr.fetch("observations", datetime.datetime(1931, month, 1), version="4.6.1")
         twcr.fetch("PRMSL", datetime.datetime(1931, month, 1), version="4.6.1")
         twcr.fetch("PRATE", datetime.datetime(1931, month, 1), version="4.6.1")
         twcr.fetch("TMP2m", datetime.datetime(1931, month, 1), version="4.6.1")
