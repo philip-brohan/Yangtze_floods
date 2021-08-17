@@ -8,6 +8,9 @@ dependencies:
   - cartopy=0.18.*
   - geopandas=0.8.*
   - cmocean=2.0
+# Image manipulation for a presentation
+  - ffmpeg=4.3.*
+  - pillow=8.0.*
 # Optional, code formatter
   - black
 # Philip's libraries
