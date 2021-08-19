@@ -32,10 +32,10 @@ for y in range(height):
     for x in range(width):
         pixdata[x, y] = (0, 0, 0, int(pixdata[x, y][3] / 3))
 frs = frs.filter(ImageFilter.BoxBlur(10))
-bkg.paste(frs, (args.frame - 50 + 100, 100), frs)
+bkg.paste(frs, (args.frame*2 - 120 + 100, 100), frs)
 
 # Merge the dragon onto the background
-bkg.paste(frm, (args.frame - 50, 0), frm)
+bkg.paste(frm, (args.frame*2 - 120, 0), frm)
 
 # Save the merged image
 opn = "%s/images/Dragon_merged/%04d.jpg" % (os.getenv("SCRATCH"), args.frame)
