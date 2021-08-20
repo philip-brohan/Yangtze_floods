@@ -4,7 +4,7 @@
 
 base_dir='/home/h03/hadpb/Projects/20CRv3-diagnostics/tools/extract_data/store_on_mass'
 
-$base_dir/v3_from_mass.py --year=1930 --month=10 --version=4.6.1 --variable=all
+#$base_dir/v3_from_mass.py --year=1930 --month=10 --version=4.6.1 --variable=all
 $base_dir/v3_from_mass.py --year=1930 --month=11 --version=4.6.1 --variable=all
 $base_dir/v3_from_mass.py --year=1930 --month=12 --version=4.6.1 --variable=all
 

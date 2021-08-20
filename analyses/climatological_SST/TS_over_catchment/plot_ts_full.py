@@ -38,13 +38,18 @@ parser.add_argument("--endmonth", help="End Month", type=int, default=9, require
 parser.add_argument("--endday", help="End Day", type=int, default=30, required=False)
 parser.add_argument("--endhour", help="End Hour", type=int, default=18, required=False)
 parser.add_argument("--var", help="Variable to plot", type=str, required=True)
+parser.add_argument("--opfile", help="Output file name", type=str, required=False)
 parser.add_argument(
     "--version",
     help="20CR version ('3' or e.g. '4.6.5')",
-    default="3",
+    default='3',
     type=str,
-    required=True,
+    required=False,
 )
+parser.add_argument("--ensemble", default=False, action="store_true")
+parser.add_argument("--mean", default=False, action="store_true")
+parser.add_argument("--climatology", default=False, action="store_true")
+parser.add_argument("--interannual", default=False, action="store_true")
 parser.add_argument(
     "--comparison",
     help="20CR version ('3' or e.g. '4.6.5')",
@@ -189,32 +194,34 @@ for yr in range(start.year, end.year + 1):
                 )
             )
 
-# Plot running mean for each ensemble member
-for m in range(80):
-    (dts2, nd2) = movingaverage(dts, ndata[:, m] * args.yscale, 3 * 8)
-    ax.add_line(
-        Line2D(
-            dts2,
-            nd2,
-            linewidth=1,
-            color=(0.8, 0.8, 0.8, 1),
-            alpha=1,
-            zorder=20,
+if args.ensemble:
+    # Plot running mean for each ensemble member
+    for m in range(80):
+        (dts2, nd2) = movingaverage(dts, ndata[:, m] * args.yscale, 3 * 8)
+        ax.add_line(
+            Line2D(
+                dts2,
+                nd2,
+                linewidth=1,
+                color=(0.8, 0.8, 0.8, 1),
+                alpha=1,
+                zorder=20,
+            )
         )
-    )
 
 # Add the running mean of the ensemble mean
-(dtsrm, rmem) = movingaverage(dts, ensm(ndata) * args.yscale, 3 * 8)
-ax.add_line(
-    Line2D(
-        dtsrm,
-        rmem,
-        linewidth=2.0,
-        color=(0, 0, 0, 1),
-        alpha=1,
-        zorder=300,
+if args.mean:
+    (dtsrm, rmem) = movingaverage(dts, ensm(ndata) * args.yscale, 3 * 8)
+    ax.add_line(
+        Line2D(
+            dtsrm,
+            rmem,
+            linewidth=2.0,
+            color=(0, 0, 0, 1),
+            alpha=1,
+            zorder=300,
+        )
     )
-)
 
 if args.comparison3 is not None:
     # Add the running mean of the ensemble mean for the third comparison dataset
@@ -272,27 +279,31 @@ for dec in [-4, -3, -2, -1, 1, 2, 3, 4]:
     else:
         ndd_a += ndd
     ndd_c += 1
+    if args.interannual:
+        ax.add_line(
+            Line2D(
+                dtsrm,
+                rmem,
+                linewidth=1.0,
+                color=(0, 0, 1, 1),
+                alpha=0.25,
+                zorder=150,
+            )
+    )
+if args.climatology:
+    (dtsrm, rmem) = movingaverage(dtsd, ensm(ndd_a) * args.yscale / ndd_c, 30 * 8)
     ax.add_line(
         Line2D(
             dtsrm,
             rmem,
-            linewidth=1.0,
+            linewidth=2.0,
             color=(0, 0, 1, 1),
-            alpha=0.25,
-            zorder=150,
+            alpha=0.5,
+            zorder=175,
         )
     )
-(dtsrm, rmem) = movingaverage(dtsd, ensm(ndd_a) * args.yscale / ndd_c, 30 * 8)
-ax.add_line(
-    Line2D(
-        dtsrm,
-        rmem,
-        linewidth=2.0,
-        color=(0, 0, 1, 1),
-        alpha=0.5,
-        zorder=175,
-    )
-)
 
 
-fig.savefig("%s.png" % args.var)
+if args.opfile is None:
+    args.opfile = "%s.png" % args.var
+fig.savefig(args.opfile)
