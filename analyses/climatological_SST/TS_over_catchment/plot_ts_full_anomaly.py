@@ -38,6 +38,7 @@ parser.add_argument("--endmonth", help="End Month", type=int, default=9, require
 parser.add_argument("--endday", help="End Day", type=int, default=30, required=False)
 parser.add_argument("--endhour", help="End Hour", type=int, default=18, required=False)
 parser.add_argument("--var", help="Variable to plot", type=str, required=True)
+parser.add_argument("--opfile", help="Output file name", type=str, required=False)
 parser.add_argument(
     "--version",
     help="20CR version ('3' or e.g. '4.6.5')",
@@ -335,4 +336,6 @@ for idx in range(len(ndda)):
     )
 
 
-fig.savefig("%s_anomalies.png" % args.var)
+if args.opfile is None:
+    args.opfile = "%s_anomalies.png" % args.var
+fig.savefig(args.opfile)
